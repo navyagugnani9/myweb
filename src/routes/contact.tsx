@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Mail, MapPin, Clock, UserCheck, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, UserCheck, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -80,6 +80,7 @@ function ContactPage() {
             <div className="mt-8 space-y-5">
               {[
                 { icon: Mail, label: "Email", value: "recruitment@acadhire.co.in" },
+                { icon: Phone, label: "Phone", value: "+91 89505 04713", href: "tel:+918950504713" },
                 { icon: MapPin, label: "City", value: "New Delhi, India" },
                 { icon: Clock, label: "Office Hours", value: "Monday – Saturday · 9 AM – 6 PM IST" },
                 { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/company/acadhirerecruitments", href: "https://www.linkedin.com/company/acadhirerecruitments/" },
