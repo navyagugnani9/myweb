@@ -56,39 +56,48 @@ export const Route = createFileRoute('/api/public/talent-card-request')({
         const isBusinessEmail = !FREE_EMAIL_DOMAINS.has(emailDomain)
         const needsManualReview = !isBusinessEmail || elapsedMs < MIN_HUMAN_FILL_MS
 
-        const { data: inserted, error: insertError } = await supabaseAdmin
-          .from('talent_card_requests')
-          .insert({
-            candidate_id: parsed.candidateId,
-            employer_name: parsed.fullName,
-            organization_name: parsed.organizationName,
-            designation: parsed.designation || null,
-            work_email: parsed.workEmail,
-            phone: parsed.phone,
-            organization_type: parsed.organizationType,
-            role_considered: parsed.roleConsidered,
-            hiring_location: parsed.hiringLocation || null,
-            salary_range: parsed.salaryRange || null,
-            joining_timeline: parsed.joiningTimeline || null,
-            requirement_details: parsed.requirementDetails,
-            is_business_email: isBusinessEmail,
-            verification_status: needsManualReview ? 'Manual Review Required' : 'Pending',
-            candidate_consent_status: 'Pending',
-            request_status: 'New',
-            internal_notes: !isBusinessEmail ? 'Submitted from a non-business email address — verify employer before proceeding.' : null,
-          })
-          .select('id')
-          .single()
+        // Storage and email are independent: if the database is unreachable or
+        // unconfigured, we still want the request to reach recruitment@acadhire.co.in
+        // rather than failing the whole submission.
+        let insertedId: string | undefined
+        try {
+          const { data: inserted, error: insertError } = await supabaseAdmin
+            .from('talent_card_requests')
+            .insert({
+              candidate_id: parsed.candidateId,
+              employer_name: parsed.fullName,
+              organization_name: parsed.organizationName,
+              designation: parsed.designation || null,
+              work_email: parsed.workEmail,
+              phone: parsed.phone,
+              organization_type: parsed.organizationType,
+              role_considered: parsed.roleConsidered,
+              hiring_location: parsed.hiringLocation || null,
+              salary_range: parsed.salaryRange || null,
+              joining_timeline: parsed.joiningTimeline || null,
+              requirement_details: parsed.requirementDetails,
+              is_business_email: isBusinessEmail,
+              verification_status: needsManualReview ? 'Manual Review Required' : 'Pending',
+              candidate_consent_status: 'Pending',
+              request_status: 'New',
+              internal_notes: !isBusinessEmail ? 'Submitted from a non-business email address — verify employer before proceeding.' : null,
+            })
+            .select('id')
+            .single()
 
-        if (insertError) {
-          console.error('Failed to store talent card request:', insertError)
-          return Response.json({ error: 'Failed to save request' }, { status: 500 })
+          if (insertError) {
+            console.error('Failed to store talent card request (continuing to notify by email):', insertError)
+          } else {
+            insertedId = inserted?.id
+          }
+        } catch (err) {
+          console.error('Supabase unavailable while storing talent card request (continuing to notify by email):', err)
         }
 
         const resendApiKey = process.env.RESEND_API_KEY
         if (!resendApiKey) {
-          console.error('RESEND_API_KEY is not set — request stored but notification email was not sent')
-          return Response.json({ success: true, requestId: inserted?.id })
+          console.error('RESEND_API_KEY is not set — talent card request notification email was not sent')
+          return Response.json({ success: true, requestId: insertedId })
         }
 
         const template = TEMPLATES['talent-card-request']
@@ -135,7 +144,7 @@ export const Route = createFileRoute('/api/public/talent-card-request')({
           console.error('Failed to send talent card request notification:', err)
         }
 
-        return Response.json({ success: true, requestId: inserted?.id })
+        return Response.json({ success: true, requestId: insertedId })
       },
     },
   },
