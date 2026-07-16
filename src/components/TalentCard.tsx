@@ -1,14 +1,8 @@
-import { MapPin, Briefcase, Award, Clock, Wallet, Building2, CircleDot, ArrowRight } from "lucide-react";
+import { MapPin, Briefcase, Award, Clock, Wallet, Building2, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { TalentCardData, AvailabilityStatus } from "@/lib/talent-cards";
-
-const statusStyles: Record<AvailabilityStatus, string> = {
-  "Actively Looking": "bg-teal/10 text-teal border-teal/30",
-  "Selectively Exploring": "bg-amber-cta/15 text-amber-cta border-amber-cta/30",
-  "Open to Offers": "bg-navy/10 text-navy border-navy/30",
-};
+import type { TalentCardData } from "@/lib/talent-cards";
 
 interface Props {
   card: TalentCardData;
@@ -20,18 +14,11 @@ export function TalentCard({ card, onRequestProfile }: Props) {
     <Card className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-0 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-elegant hover:border-teal/40">
       {/* Header */}
       <div className="bg-surface px-6 pb-5 pt-6">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <Badge variant="outline" className="border-navy/20 bg-navy/5 text-navy font-semibold tracking-wide">
-              Candidate {card.candidateId}
-            </Badge>
-            <h3 className="mt-3 text-xl font-bold text-foreground leading-snug">{card.targetRole}</h3>
-            <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-teal">{card.roleCategory}</p>
-          </div>
-          <Badge variant="outline" className={`${statusStyles[card.status]} shrink-0 whitespace-nowrap`}>
-            <CircleDot className="mr-1 h-3 w-3" /> {card.status}
-          </Badge>
-        </div>
+        <Badge variant="outline" className="border-navy/20 bg-navy/5 text-navy font-semibold tracking-wide">
+          Candidate {card.candidateId}
+        </Badge>
+        <h3 className="mt-3 text-xl font-bold text-foreground leading-snug">{card.targetRole}</h3>
+        <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-teal">{card.roleCategory}</p>
       </div>
 
       {/* Body */}
