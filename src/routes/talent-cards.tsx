@@ -49,7 +49,7 @@ function TalentCardsPage() {
         <div className="container-prose relative py-20 md:py-28 max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">AcadHire Talent Cards</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-[1.1]">
-            Discover Pre Screened Education Talent
+            Discover Pre-screened Education Talent
           </h1>
           <p className="mt-6 text-lg text-white/80">
             Explore selected professionals from across the education sector who are actively looking or selectively exploring new opportunities.
