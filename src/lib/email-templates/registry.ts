@@ -10,7 +10,9 @@ export interface TemplateEntry {
 }
 
 import { template as formNotification } from './form-notification'
+import { template as talentCardRequest } from './talent-card-request'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'form-notification': formNotification,
+  'talent-card-request': talentCardRequest,
 }
