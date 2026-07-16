@@ -153,13 +153,12 @@
   }
 }
 
-@layer utilities {
-  .bg-hero-navy {
-    background: var(--gradient-navy);
-  }
-  .shadow-elegant {
-    box-shadow: var(--shadow-elegant);
-  }
+/* .container-prose lives in the components layer (not utilities) so that
+   Tailwind's own max-w-* utilities always win the cascade when combined on
+   the same element (e.g. `container-prose max-w-3xl`) — otherwise, two
+   same-specificity rules would resolve by source order, and this
+   hand-written rule would always beat Tailwind's generated utilities. */
+@layer components {
   .container-prose {
     width: 100%;
     max-width: 1600px;
@@ -186,6 +185,15 @@
       padding-left: 4rem;
       padding-right: 4rem;
     }
+  }
+}
+
+@layer utilities {
+  .bg-hero-navy {
+    background: var(--gradient-navy);
+  }
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
   }
   .grid-pattern {
     background-image:
