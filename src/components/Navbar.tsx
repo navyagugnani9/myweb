@@ -34,7 +34,7 @@ export function Navbar() {
         scrolled ? "bg-background/95 backdrop-blur shadow-sm border-b border-border" : "bg-background border-b border-transparent",
       )}
     >
-      <div className="container-prose flex h-16 items-center justify-between">
+      <div className="container-prose flex h-16 items-center justify-between gap-8">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <LogoMark className="h-8 w-8" variant="light" />
           <LogoWordmark className="text-2xl" variant="light" />
