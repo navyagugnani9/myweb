@@ -79,7 +79,7 @@ function TalentCardsPage() {
       </section>
 
       {/* INTRO */}
-      <section className="py-20 md:py-28">
+      <section className="pt-14 pb-8 md:pt-16 md:pb-10">
         <div className="container-prose">
           <SectionHeading
             eyebrow="Why Talent Cards"
@@ -102,7 +102,7 @@ function TalentCardsPage() {
       </section>
 
       {/* FULL LISTING */}
-      <section id="talent-cards-listing" className="py-20 md:py-28 scroll-mt-20">
+      <section id="talent-cards-listing" className="pt-8 pb-14 md:pt-10 md:pb-16 scroll-mt-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Browse all" title="Talent Cards" />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -122,7 +122,7 @@ function TalentCardsPage() {
 
       {/* DIDN'T FIND THE RIGHT PROFILE */}
       <section className="bg-hero-navy text-white">
-        <div className="container-prose py-16 text-center max-w-2xl mx-auto">
+        <div className="container-prose pt-16 pb-10 text-center max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white">Didn't Find the Right Profile?</h2>
           <p className="mt-3 text-white/80">
             Tell us what you are hiring for, and AcadHire will conduct a targeted search across its education talent network.
