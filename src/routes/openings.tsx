@@ -32,7 +32,7 @@ function OpeningsPage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="pt-20 pb-8 md:pt-28 md:pb-10">
         <div className="container-prose">
           <SectionHeading
             align="left"
