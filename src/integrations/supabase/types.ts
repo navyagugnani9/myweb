@@ -125,6 +125,72 @@ export type Database = {
         }
         Relationships: []
       }
+      talent_card_requests: {
+        Row: {
+          candidate_consent_status: string
+          candidate_id: string
+          created_at: string
+          designation: string | null
+          employer_name: string
+          hiring_location: string | null
+          id: string
+          internal_notes: string | null
+          is_business_email: boolean
+          joining_timeline: string | null
+          organization_name: string
+          organization_type: string
+          phone: string
+          request_status: string
+          requirement_details: string
+          role_considered: string
+          salary_range: string | null
+          verification_status: string
+          work_email: string
+        }
+        Insert: {
+          candidate_consent_status?: string
+          candidate_id: string
+          created_at?: string
+          designation?: string | null
+          employer_name: string
+          hiring_location?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_business_email?: boolean
+          joining_timeline?: string | null
+          organization_name: string
+          organization_type: string
+          phone: string
+          request_status?: string
+          requirement_details: string
+          role_considered: string
+          salary_range?: string | null
+          verification_status?: string
+          work_email: string
+        }
+        Update: {
+          candidate_consent_status?: string
+          candidate_id?: string
+          created_at?: string
+          designation?: string | null
+          employer_name?: string
+          hiring_location?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_business_email?: boolean
+          joining_timeline?: string | null
+          organization_name?: string
+          organization_type?: string
+          phone?: string
+          request_status?: string
+          requirement_details?: string
+          role_considered?: string
+          salary_range?: string | null
+          verification_status?: string
+          work_email?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
