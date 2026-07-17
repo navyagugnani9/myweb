@@ -105,7 +105,7 @@ function TalentCardsPage() {
       <section id="talent-cards-listing" className="pt-8 pb-14 md:pt-10 md:pb-16 scroll-mt-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Browse all" title="Talent Cards" />
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {visibleCards.map((card) => (
               <TalentCard key={card.candidateId} card={card} onRequestProfile={handleRequestProfile} />
             ))}
