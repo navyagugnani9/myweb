@@ -11,7 +11,7 @@ interface Props {
 
 export function TalentCard({ card, onRequestProfile }: Props) {
   return (
-    <Card className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-0 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-elegant hover:border-teal/40">
+    <Card className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-0 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-elegant hover:border-teal/40">
       {/* Header */}
       <div className="bg-surface px-6 pb-5 pt-6">
         <Badge variant="outline" className="border-navy/20 bg-navy/5 text-navy font-semibold tracking-wide">
