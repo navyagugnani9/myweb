@@ -1,4 +1,4 @@
-import { MapPin, Briefcase, Award, Clock, Wallet, Building2, ArrowRight } from "lucide-react";
+import { MapPin, Briefcase, Clock, Wallet, Building2, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -63,13 +63,6 @@ export function TalentCard({ card, onRequestProfile }: Props) {
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Current Responsibility</p>
             <p className="mt-1 text-body leading-relaxed">{card.currentResponsibility}</p>
           </div>
-        </div>
-
-        <div className="rounded-xl border border-amber-cta/20 bg-amber-cta/5 p-4">
-          <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-navy">
-            <Award className="h-3.5 w-3.5 text-amber-cta" /> Key Achievement
-          </p>
-          <p className="mt-1.5 text-sm text-body leading-relaxed">{card.keyAchievement}</p>
         </div>
 
         <div>
