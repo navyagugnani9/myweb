@@ -52,7 +52,7 @@ const schema = z.object({
   phone: z.string().trim().min(7, "Enter a valid phone number").max(20),
   currentTitle: z.string().trim().min(2, "Current role is required").max(150),
   currentOrg: z.string().trim().min(2, "Current organization is required").max(150),
-  experience: z.enum(["0–1", "1–3", "3–5", "5–10", "10+"]),
+  experience: z.enum(["0–1", "1–3", "3–5", "5–10", "10+", "15+", "20+", "25+", "30+"]),
   expertise: z.enum(["Academic", "Leadership", "Sales & Admissions", "Operations & Success", "Other"]),
   location: z.string().trim().min(2, "Location is required").max(120),
   currentSalary: z.string().trim().min(1, "Current salary is required").max(120),
@@ -172,7 +172,7 @@ function ForCandidatesPage() {
                   <Select onValueChange={(v) => form.setValue("experience", v as FormValues["experience"], { shouldValidate: true })}>
                     <SelectTrigger><SelectValue placeholder="Select experience" /></SelectTrigger>
                     <SelectContent>
-                      {["0–1", "1–3", "3–5", "5–10", "10+"].map((o) => <SelectItem key={o} value={o}>{o} years</SelectItem>)}
+                      {["0–1", "1–3", "3–5", "5–10", "10+", "15+", "20+", "25+", "30+"].map((o) => <SelectItem key={o} value={o}>{o} years</SelectItem>)}
                     </SelectContent>
                   </Select>
                 </Field>
