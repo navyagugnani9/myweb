@@ -13,6 +13,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/SectionHeading";
 import { submitFormNotification } from "@/lib/submit-form";
@@ -32,6 +33,19 @@ export const Route = createFileRoute("/for-candidates")({
 });
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const OPPORTUNITY_TYPES = [
+  "Full Time Roles",
+  "Part Time Roles",
+  "Remote Opportunities",
+  "Hybrid Opportunities",
+  "Contract Roles",
+  "Freelance Projects",
+  "Consulting Opportunities",
+  "Teaching or Training Assignments",
+  "Leadership Roles",
+  "Other",
+] as const;
+
 const schema = z.object({
   fullName: z.string().trim().min(2, "Full name is required").max(120),
   email: z.string().trim().email("Enter a valid email").max(200),
@@ -44,6 +58,8 @@ const schema = z.object({
   currentSalary: z.string().trim().min(1, "Current salary is required").max(120),
   expectedSalary: z.string().trim().min(1, "Expected salary is required").max(120),
   activelyLooking: z.enum(["Yes", "Open to Opportunities", "Not Currently"]),
+  opportunityTypes: z.array(z.string()).optional().default([]),
+  preferredRoles: z.string().trim().max(300).optional().or(z.literal("")),
   featureAsTalentCard: z.enum(["Yes", "No"], { errorMap: () => ({ message: "Please select an option" }) }),
   resume: z.any().refine((files: FileList | undefined) => files && files.length > 0, "Please upload your resume")
     .refine((files: FileList) => !files?.[0] || files[0].size <= MAX_FILE_SIZE, "Max file size is 5MB")
@@ -73,6 +89,8 @@ function ForCandidatesPage() {
           { label: 'Current Salary', value: values.currentSalary },
           { label: 'Expected Salary', value: values.expectedSalary },
           { label: 'Actively Looking', value: values.activelyLooking },
+          { label: 'Opportunity Types', value: values.opportunityTypes?.length ? values.opportunityTypes.join(', ') : '—' },
+          { label: 'Preferred Roles / Job Titles', value: values.preferredRoles },
           { label: 'Feature as Anonymous Talent Card', value: values.featureAsTalentCard },
           { label: 'Resume', value: resumeFile ? resumeFile.name : '—' },
           { label: 'Message', value: values.message },
@@ -188,6 +206,32 @@ function ForCandidatesPage() {
                       </label>
                     ))}
                   </RadioGroup>
+                </Field>
+
+                <Field label="What types of opportunities are you looking for?" className="md:col-span-2">
+                  <p className="mb-2 text-xs text-muted-foreground">Select all that apply</p>
+                  <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                    {OPPORTUNITY_TYPES.map((o) => {
+                      const selected = (form.watch("opportunityTypes") ?? []).includes(o);
+                      return (
+                        <label key={o} className="flex items-center gap-2 cursor-pointer text-sm text-body">
+                          <Checkbox
+                            checked={selected}
+                            onCheckedChange={(v) => {
+                              const current = form.getValues("opportunityTypes") ?? [];
+                              const next = v ? [...current, o] : current.filter((x) => x !== o);
+                              form.setValue("opportunityTypes", next, { shouldValidate: true });
+                            }}
+                          />
+                          {o}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </Field>
+
+                <Field label="Preferred Roles or Job Titles" error={form.formState.errors.preferredRoles?.message} className="md:col-span-2">
+                  <Input {...form.register("preferredRoles")} placeholder="For example: Centre Director, Academic Coordinator, Psychology Teacher, Operations Manager" />
                 </Field>
 
                 <Field label="Resume (PDF or DOC, max 5MB)" error={form.formState.errors.resume?.message as string | undefined} className="md:col-span-2">
