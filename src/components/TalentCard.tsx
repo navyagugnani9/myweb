@@ -1,4 +1,4 @@
-import { MapPin, Briefcase, Clock, Wallet, Building2, ArrowRight } from "lucide-react";
+import { MapPin, Briefcase, Clock, Wallet, Building2, CalendarClock, Star, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,13 +41,19 @@ export function TalentCard({ card, onRequestProfile }: Props) {
           {card.expectedSalaryRange && (
             <div className="flex items-center gap-2 text-body">
               <Wallet className="h-4 w-4 text-teal shrink-0" />
-              <span>{card.expectedSalaryRange}</span>
+              <span>Expected: {card.expectedSalaryRange}</span>
             </div>
           )}
           {card.workMode && (
             <div className="flex items-center gap-2 text-body">
               <Building2 className="h-4 w-4 text-teal shrink-0" />
               <span>{card.workMode}</span>
+            </div>
+          )}
+          {card.availability && (
+            <div className="flex items-center gap-2 text-body">
+              <CalendarClock className="h-4 w-4 text-teal shrink-0" />
+              <span>{card.availability}</span>
             </div>
           )}
         </div>
@@ -61,7 +67,18 @@ export function TalentCard({ card, onRequestProfile }: Props) {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Current Responsibility</p>
-            <p className="mt-1 text-body leading-relaxed">{card.currentResponsibility}</p>
+            <ul className="mt-1.5 space-y-1.5">
+              {card.currentResponsibility.map((point, i) => (
+                <li key={i} className="flex gap-2 text-body leading-relaxed">
+                  {point.isAchievement ? (
+                    <Star className="mt-0.5 h-3.5 w-3.5 shrink-0 fill-amber-cta text-amber-cta" />
+                  ) : (
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
+                  )}
+                  <span>{point.text}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
