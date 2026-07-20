@@ -61,6 +61,12 @@ export function Navbar() {
           <Button asChild variant="outline" className="border-navy text-navy hover:bg-navy hover:text-navy-foreground">
             <Link to="/for-candidates">Find a Job</Link>
           </Button>
+          <Link
+            to="/pick-your-mood"
+            className="ml-1 text-xs text-muted-foreground hover:text-teal transition-colors whitespace-nowrap"
+          >
+            🎭 Pick Your Mood
+          </Link>
         </div>
 
         <button
@@ -94,6 +100,13 @@ export function Navbar() {
               <Button asChild variant="outline" className="border-navy text-navy">
                 <Link to="/for-candidates" onClick={() => setOpen(false)}>Find a Job</Link>
               </Button>
+              <Link
+                to="/pick-your-mood"
+                onClick={() => setOpen(false)}
+                className="text-center text-xs text-muted-foreground hover:text-teal transition-colors"
+              >
+                🎭 Pick Your Mood
+              </Link>
             </div>
           </nav>
         </div>
