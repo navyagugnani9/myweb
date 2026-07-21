@@ -3,7 +3,51 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/SectionHeading";
-import { OPENINGS } from "@/lib/openings";
+import { OPENINGS, type JobOpening } from "@/lib/openings";
+
+const SITE_URL = "https://www.acadhire.co.in";
+
+function getMeta(job: JobOpening, label: string) {
+  return job.metadata.find((m) => m.label === label)?.value;
+}
+
+function buildJobPostingSchema(job: JobOpening) {
+  const location = getMeta(job, "Location") ?? "";
+  const isRemote = location.toLowerCase().includes("remote");
+  const employmentType = getMeta(job, "Employment Type") === "Full Time" ? "FULL_TIME" : "OTHER";
+  const description = [
+    job.summary,
+    ...job.sections.flatMap((s) => [s.heading, ...(s.paragraphs ?? []), ...(s.bullets ?? [])]),
+  ].join(" ");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description,
+    datePosted: job.datePosted,
+    validThrough: job.validThrough,
+    employmentType,
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.organisation,
+    },
+    ...(isRemote
+      ? { jobLocationType: "TELECOMMUTE", applicantLocationRequirements: { "@type": "Country", name: "India" } }
+      : {
+          jobLocation: {
+            "@type": "Place",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: location,
+              addressCountry: "IN",
+            },
+          },
+        }),
+    directApply: false,
+    url: `${SITE_URL}/openings`,
+  };
+}
 
 export const Route = createFileRoute("/openings")({
   head: () => ({
@@ -24,6 +68,14 @@ function OpeningsPage() {
 
   return (
     <>
+      {OPENINGS.map((job) => (
+        <script
+          key={job.id}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJobPostingSchema(job)) }}
+        />
+      ))}
+
       <section className="bg-hero-navy text-white py-20">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Openings</p>
