@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /pick-your-mood
+
+Sitemap: https://www.acadhire.co.in/sitemap.xml
