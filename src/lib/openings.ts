@@ -11,6 +11,8 @@ export interface JobOpening {
   metadata: { label: string; value: string }[];
   summary: string;
   sections: JobSection[];
+  datePosted: string;
+  validThrough: string;
 }
 
 export const OPENINGS: JobOpening[] = [
@@ -18,6 +20,8 @@ export const OPENINGS: JobOpening[] = [
     id: "education-counsellor",
     title: "Education Counsellor",
     organisation: "Leading Education Consultancy",
+    datePosted: "2026-07-01",
+    validThrough: "2026-10-01",
     metadata: [
       { label: "Location", value: "Bavdhan, Pune" },
       { label: "Employment Type", value: "Full Time" },
@@ -57,6 +61,8 @@ export const OPENINGS: JobOpening[] = [
     id: "social-media-content-manager",
     title: "Social Media & Content Manager",
     organisation: "Leading K to 12 School",
+    datePosted: "2026-07-01",
+    validThrough: "2026-10-01",
     metadata: [
       { label: "Location", value: "Remote" },
       { label: "Employment Type", value: "Full Time" },
