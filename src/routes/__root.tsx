@@ -68,8 +68,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "AcadHire | Specialist Recruitment for Schools & Education Companies" },
       { name: "twitter:description", content: "AcadHire is a specialist recruitment consultancy helping schools, EdTech companies, and education organizations hire verified academic, leadership, and operations talent." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f64351a2-b208-47af-b00d-4b53d03915b7" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f64351a2-b208-47af-b00d-4b53d03915b7" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -99,6 +97,27 @@ function RootShell({ children }: { children: React.ReactNode }) {
         </script>
         {/* End Google Tag Manager */}
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "AcadHire",
+              url: "https://www.acadhire.co.in",
+              logo: "https://www.acadhire.co.in/favicon.svg",
+              description: "AcadHire is a specialist recruitment consultancy helping schools, EdTech companies, and education organizations hire verified academic, leadership, and operations talent.",
+              email: "recruitment@acadhire.co.in",
+              telephone: "+91-89505-04713",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "New Delhi",
+                addressCountry: "IN",
+              },
+              sameAs: ["https://www.linkedin.com/company/acadhirerecruitments/"],
+            }),
+          }}
+        />
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
