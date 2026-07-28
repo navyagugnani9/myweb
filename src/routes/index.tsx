@@ -124,7 +124,7 @@ function Home() {
         <div className="container-prose">
           <SectionHeading
             eyebrow="Our services"
-            title="Four Hiring Verticals. One Specialist Partner."
+            title="Explore our hiring expertise"
           />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
