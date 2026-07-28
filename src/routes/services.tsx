@@ -116,18 +116,26 @@ function ServicesPage() {
         </div>
       </section>
 
+      <section className="pt-20 md:pt-24 pb-6">
+        <div className="container-prose">
+          <SectionHeading eyebrow="Our services" title="Explore our hiring expertise" />
+        </div>
+      </section>
+
       {services.map((s, i) => (
-        <section key={s.title} className={i % 2 === 0 ? "py-20 md:py-24" : "py-20 md:py-24 bg-surface"}>
-          <div className="container-prose grid gap-10 lg:grid-cols-[1.2fr_1fr] items-start">
-            <div>
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-navy text-navy-foreground">
-                <s.icon className="h-6 w-6" />
-              </span>
-              <h2 className="mt-5 text-3xl md:text-4xl font-bold text-foreground">{s.title}</h2>
-              <div className="mt-5 space-y-4 text-body">
-                {s.desc.map((p, idx) => <p key={idx}>{p}</p>)}
+        <section key={s.title} className={`${i === 0 ? "pt-6" : "pt-20 md:pt-24"} pb-20 md:pb-24 ${i % 2 === 0 ? "" : "bg-surface"}`}>
+          <div className="container-prose grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+            <div className="flex h-full flex-col justify-between">
+              <div>
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-navy text-navy-foreground">
+                  <s.icon className="h-6 w-6" />
+                </span>
+                <h2 className="mt-5 text-3xl md:text-4xl font-bold text-foreground">{s.title}</h2>
+                <div className="mt-5 space-y-4 text-body">
+                  {s.desc.map((p, idx) => <p key={idx}>{p}</p>)}
+                </div>
               </div>
-              <Button asChild className="mt-7 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+              <Button asChild className="mt-7 self-start bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
                 <Link to="/for-employers">Submit a Hiring Requirement</Link>
               </Button>
             </div>
