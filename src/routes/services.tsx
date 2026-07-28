@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, Award, LineChart, Users, ClipboardList, Search, FileSearch, UserCheck, Calendar, Handshake } from "lucide-react";
+import { BookOpen, Award, LineChart, Users, ClipboardList, Search, FileSearch, UserCheck, Calendar, Handshake, Building2, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -65,6 +65,29 @@ const services = [
   },
 ];
 
+const specialistServices = [
+  {
+    icon: ClipboardList,
+    title: "Specialist Recruitment",
+    desc: "End to end recruitment support for academic, commercial, operational, and support roles across education organisations. We manage sourcing, preliminary screening, candidate evaluation, interview coordination, and joining follow up.",
+  },
+  {
+    icon: Search,
+    title: "Leadership Search",
+    desc: "Discreet and targeted search for senior academic, business, operational, and institutional leadership positions. Each search includes market mapping, direct outreach, and a detailed assessment of leadership experience, motivation, and organisational fit.",
+  },
+  {
+    icon: Building2,
+    title: "Campus and Expansion Hiring",
+    desc: "Structured hiring support for new campuses, multiple locations, and large recruitment requirements. We help prioritise critical roles, plan hiring timelines, build candidate pipelines, and coordinate several searches simultaneously.",
+  },
+  {
+    icon: Target,
+    title: "Talent Mapping and Assessment",
+    desc: "Research led candidate mapping, market insights, compensation benchmarking, and structured evaluation to support informed hiring decisions. This service helps institutions understand talent availability before beginning or expanding a search.",
+  },
+];
+
 function ServicesPage() {
   return (
     <>
@@ -73,6 +96,23 @@ function ServicesPage() {
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Our Services</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Recruitment Services Built for Education</h1>
           <p className="mt-5 text-lg text-white/80">Four specialist hiring verticals covering every critical role in your organization.</p>
+        </div>
+      </section>
+
+      <section className="py-20 md:py-24">
+        <div className="container-prose">
+          <SectionHeading eyebrow="How we help" title="Specialist Recruitment Services" />
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {specialistServices.map((s) => (
+              <Card key={s.title} className="p-7 hover:shadow-elegant transition-shadow">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-navy-foreground">
+                  <s.icon className="h-8 w-8" />
+                </span>
+                <h3 className="mt-5 text-2xl font-bold text-foreground">{s.title}</h3>
+                <p className="mt-2 text-base text-body leading-[1.5]">{s.desc}</p>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
