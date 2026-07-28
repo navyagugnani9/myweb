@@ -153,9 +153,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ScrollToTopOnRouteChange />
-      <div className="flex min-h-screen flex-col">
+      <div className="flex flex-col">
         <Navbar />
-        <main className="flex-1">
+        <main>
           <Outlet />
         </main>
         <Footer />
