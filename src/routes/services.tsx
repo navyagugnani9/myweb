@@ -91,7 +91,7 @@ const specialistServices = [
 function ServicesPage() {
   return (
     <>
-      <section className="bg-hero-navy text-white py-20">
+      <section className="bg-hero-navy text-white py-16">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Our Services</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Recruitment Services Built for Education</h1>
@@ -99,7 +99,7 @@ function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-24">
+      <section className="py-14 md:py-16">
         <div className="container-prose">
           <SectionHeading eyebrow="How we help" title="Specialist Recruitment Services" />
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
@@ -116,14 +116,14 @@ function ServicesPage() {
         </div>
       </section>
 
-      <section className="pt-20 md:pt-24 pb-6">
+      <section className="pt-14 md:pt-16 pb-6">
         <div className="container-prose">
           <SectionHeading eyebrow="Our services" title="Explore our hiring expertise" />
         </div>
       </section>
 
       {services.map((s, i) => (
-        <section key={s.title} className={`${i === 0 ? "pt-6" : "pt-20 md:pt-24"} pb-20 md:pb-24 ${i % 2 === 0 ? "" : "bg-surface"}`}>
+        <section key={s.title} className={`${i === 0 ? "pt-6" : "pt-14 md:pt-16"} pb-14 md:pb-16 ${i % 2 === 0 ? "" : "bg-surface"}`}>
           <div className="container-prose grid gap-10 lg:grid-cols-[1.2fr_1fr]">
             <div className="flex h-full flex-col justify-between">
               <div>
@@ -159,7 +159,7 @@ function ServicesPage() {
         </section>
       ))}
 
-      <section className="py-20 md:py-28 bg-background">
+      <section className="py-14 md:py-20 bg-background">
         <div className="container-prose">
           <SectionHeading eyebrow="Our process" title="How an AcadHire Mandate Runs" />
           <div className="mt-14 grid gap-6 md:grid-cols-3 lg:grid-cols-6">

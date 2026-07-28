@@ -86,7 +86,7 @@ function ForEmployersPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white py-20">
+      <section className="bg-hero-navy text-white py-16">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Employers</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Hire Verified Education Talent</h1>
@@ -97,7 +97,7 @@ function ForEmployersPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-14">
         <div className="container-prose">
           <SectionHeading eyebrow="How it works" title="Four Simple Steps" />
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -118,7 +118,7 @@ function ForEmployersPage() {
         </div>
       </section>
 
-      <section id="requirement-form" className="py-20 bg-surface scroll-mt-20">
+      <section id="requirement-form" className="py-14 bg-surface scroll-mt-20">
         <div className="container-prose max-w-3xl">
           <SectionHeading eyebrow="Submit a requirement" title="Tell Us About the Role" subtitle="We'll respond within 24 hours with next steps and a delivery timeline." />
 
@@ -197,7 +197,7 @@ function ForEmployersPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-14">
         <div className="container-prose">
           <SectionHeading eyebrow="Why AcadHire" title="Why Employers Work With Us" />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

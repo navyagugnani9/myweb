@@ -46,7 +46,7 @@ function TalentCardsPage() {
       <section className="relative overflow-hidden bg-hero-navy text-white">
         <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden />
         <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-teal/20 blur-3xl" aria-hidden />
-        <div className="container-prose relative py-20 md:py-28 max-w-3xl text-center">
+        <div className="container-prose relative py-14 md:py-20 max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">AcadHire Talent Cards</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-[1.1]">
             Discover Pre-screened Education Talent

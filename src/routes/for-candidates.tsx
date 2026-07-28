@@ -107,7 +107,7 @@ function ForCandidatesPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white py-20">
+      <section className="bg-hero-navy text-white py-16">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Candidates</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Find Your Next Role in Education</h1>
@@ -118,7 +118,7 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-14">
         <div className="container-prose">
           <SectionHeading eyebrow="What you get" title="What We Offer Candidates" />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -137,7 +137,7 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section id="candidate-form" className="py-20 bg-surface scroll-mt-20">
+      <section id="candidate-form" className="py-14 bg-surface scroll-mt-20">
         <div className="container-prose max-w-3xl">
           <SectionHeading eyebrow="Register" title="Register Your Profile" subtitle="Share your details and resume. Our team will reach out only when there's a relevant match." />
 
@@ -276,7 +276,7 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-14">
         <div className="container-prose">
           <SectionHeading eyebrow="Next steps" title="What Happens After You Register" />
           <div className="mt-14 grid gap-6 md:grid-cols-3">

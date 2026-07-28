@@ -76,7 +76,7 @@ function OpeningsPage() {
         />
       ))}
 
-      <section className="bg-hero-navy text-white py-20">
+      <section className="bg-hero-navy text-white py-16">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Openings</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Current Openings</h1>
@@ -84,7 +84,7 @@ function OpeningsPage() {
         </div>
       </section>
 
-      <section className="pt-20 pb-8 md:pt-28 md:pb-10">
+      <section className="pt-14 pb-8 md:pt-20 md:pb-10">
         <div className="container-prose">
           <SectionHeading
             align="left"

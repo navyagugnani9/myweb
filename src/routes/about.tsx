@@ -21,7 +21,7 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <>
-      <section className="bg-hero-navy text-white py-20 md:py-28">
+      <section className="bg-hero-navy text-white py-16 md:py-20">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">About AcadHire</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-tight">
@@ -33,7 +33,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose grid gap-10 md:grid-cols-2">
           <Card className="p-8">
             <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-teal/10 text-teal"><Target className="h-5 w-5" /></span>
@@ -52,7 +52,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading eyebrow="What we do differently" title="What makes us different" />
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -72,7 +72,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Our values" title="What We Stand For" />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -93,7 +93,7 @@ function AboutPage() {
       </section>
 
       <section className="bg-hero-navy text-white">
-        <div className="container-prose py-20 text-center max-w-2xl">
+        <div className="container-prose py-14 text-center max-w-2xl">
           <h2 className="text-3xl md:text-4xl font-bold text-white">Ready to build your team?</h2>
           <p className="mt-4 text-white/80">Tell us what you're hiring for and we'll come back with a plan within 24 hours.</p>
           <Button asChild className="mt-8 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg">

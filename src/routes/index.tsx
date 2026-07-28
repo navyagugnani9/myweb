@@ -34,7 +34,7 @@ function Home() {
         <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden />
         <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-teal/20 blur-3xl" aria-hidden />
         <div className="absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-amber-cta/10 blur-3xl" aria-hidden />
-        <div className="container-prose relative py-24 md:py-32 max-w-4xl text-center">
+        <div className="container-prose relative py-16 md:py-20 max-w-4xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/90">
             <GraduationCap className="h-3.5 w-3.5" /> Specialist Education-Sector Recruitment
           </span>
@@ -59,7 +59,7 @@ function Home() {
       </section>
 
       {/* WHO WE SERVE */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading
             eyebrow="Who we serve"
@@ -85,7 +85,7 @@ function Home() {
       </section>
 
       {/* ROLES */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading
             eyebrow="Roles we hire for"
@@ -120,7 +120,7 @@ function Home() {
       </section>
 
       {/* SERVICES SNAPSHOT */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading
             eyebrow="Our services"
@@ -149,7 +149,7 @@ function Home() {
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading
             eyebrow="Why AcadHire"
@@ -179,7 +179,7 @@ function Home() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading eyebrow="How we work" title="Our Hiring Process" />
           <div className="mt-14 grid gap-6 md:grid-cols-3 lg:grid-cols-6">
@@ -205,7 +205,7 @@ function Home() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-surface py-20 md:py-28">
+      <section className="bg-surface py-14 md:py-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Testimonials" title="What Our Clients Say" />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -232,7 +232,7 @@ function Home() {
       <CTAStrip />
 
       {/* FAQ */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose max-w-3xl">
           <SectionHeading eyebrow="FAQ" title="Frequently Asked Questions" />
           <Accordion type="single" collapsible className="mt-10">

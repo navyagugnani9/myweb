@@ -39,7 +39,7 @@ function PickYourMoodPage() {
 
   return (
     <>
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-teal">A little something extra</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-foreground">Pick Your Mood</h1>
@@ -81,7 +81,7 @@ function PickYourMoodPage() {
         </div>
       </section>
 
-      <section className="bg-surface py-16 md:py-20">
+      <section className="bg-surface py-12 md:py-14">
         <div className="container-prose max-w-4xl">
           <SectionHeading eyebrow="While you're here" title="Quick Recharge Tips" />
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -99,7 +99,7 @@ function PickYourMoodPage() {
       </section>
 
       <section className="bg-hero-navy text-white">
-        <div className="container-prose max-w-2xl py-16 text-center">
+        <div className="container-prose max-w-2xl py-12 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white">Feeling Recharged?</h2>
           <p className="mt-3 text-white/80">
             Whenever you're ready, your next opportunity in education could be one click away.

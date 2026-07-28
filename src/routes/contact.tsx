@@ -62,7 +62,7 @@ function ContactPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white py-20">
+      <section className="bg-hero-navy text-white py-16">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Contact</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Get in Touch</h1>
@@ -70,7 +70,7 @@ function ContactPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="py-14">
         <div className="container-prose grid gap-10 lg:grid-cols-2">
           {/* Contact info */}
           <div>
