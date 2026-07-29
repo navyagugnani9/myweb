@@ -4,12 +4,22 @@ import { isAuthenticated } from "@/lib/team-auth.server";
 
 const BodySchema = z.object({
   query: z.string().trim().min(3).max(300),
+  linkedinOnly: z.boolean().optional(),
 });
 
 interface TavilyResult {
   title: string;
   url: string;
   content: string;
+}
+
+interface Candidate {
+  name: string;
+  role: string;
+  company: string;
+  openToWork: "Yes" | "No" | "Unclear";
+  url: string;
+  note: string;
 }
 
 export const Route = createFileRoute("/api/team/candidate-search")({
@@ -46,6 +56,7 @@ export const Route = createFileRoute("/api/team/candidate-search")({
               query: parsed.query,
               search_depth: "basic",
               max_results: 8,
+              ...(parsed.linkedinOnly ? { include_domains: ["linkedin.com"] } : {}),
             }),
           });
           if (!tavilyRes.ok) {
@@ -65,14 +76,14 @@ export const Route = createFileRoute("/api/team/candidate-search")({
         }
 
         if (results.length === 0) {
-          return Response.json({ summary: "No public results found for this search.", results: [] });
+          return Response.json({ candidates: [], results: [] });
         }
 
         const resultsList = results
           .map((r, i) => `${i + 1}. ${r.title}\n${r.url}\n${r.content}`)
           .join("\n\n");
 
-        let summary = "";
+        let candidates: Candidate[] = [];
         try {
           const claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
             method: "POST",
@@ -83,9 +94,9 @@ export const Route = createFileRoute("/api/team/candidate-search")({
             },
             body: JSON.stringify({
               model: "claude-haiku-4-5-20251001",
-              max_tokens: 1000,
+              max_tokens: 1500,
               system:
-                "You help an education-sector recruiter review public web search results for candidate sourcing. Given numbered search results, identify which ones look like an individual person who could be a relevant candidate (vs. job ads, company pages, or unrelated content), and briefly summarize who they are and why they might be relevant, citing the result number. Skip clearly irrelevant results. Be concise and factual — do not invent details not present in the snippets.",
+                "You help an education-sector recruiter review public web search results for candidate sourcing. Given numbered search results, identify ONLY the ones that are an actual individual person who could be a relevant candidate — skip job ads, company pages, generic articles, and listings. Also skip anyone who appears to run their own independent or private practice (they are not a fit for an institutional hire) unless the query explicitly asks for independent practitioners. For each genuine candidate, extract: their name, current role/title, current employer/company (school or organisation name if identifiable), whether they appear open to work (Yes if explicitly stated e.g. '#OpenToWork' or similar, No if currently employed with no such signal, Unclear if not enough information), their profile URL, and a one-sentence note on why they're relevant. Respond with ONLY a JSON array (no markdown, no prose, no code fences) of objects with keys: name, role, company, openToWork, url, note. If no genuine candidates are found, respond with exactly: []",
               messages: [
                 {
                   role: "user",
@@ -100,13 +111,20 @@ export const Route = createFileRoute("/api/team/candidate-search")({
             return Response.json({ error: "AI summary failed" }, { status: 502 });
           }
           const claudeData = await claudeRes.json();
-          summary = claudeData.content?.[0]?.text ?? "";
+          const rawText: string = claudeData.content?.[0]?.text ?? "[]";
+          const cleaned = rawText.trim().replace(/^```(json)?/i, "").replace(/```$/, "").trim();
+          try {
+            candidates = JSON.parse(cleaned);
+          } catch (parseErr) {
+            console.error("Failed to parse Claude JSON:", parseErr, rawText);
+            candidates = [];
+          }
         } catch (err) {
           console.error("Anthropic request failed:", err);
           return Response.json({ error: "AI summary failed" }, { status: 502 });
         }
 
-        return Response.json({ summary, results });
+        return Response.json({ candidates, results });
       },
     },
   },
