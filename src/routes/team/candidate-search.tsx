@@ -111,7 +111,7 @@ function PasswordGate({ onSuccess }: { onSuccess: () => void }) {
 
 function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
   const [query, setQuery] = useState("");
-  const [linkedinOnly, setLinkedinOnly] = useState(true);
+  const [linkedinOnly, setLinkedinOnly] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [candidates, setCandidates] = useState<Candidate[]>([]);
