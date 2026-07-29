@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /pick-your-mood
+Disallow: /team
 
 Sitemap: https://www.acadhire.co.in/sitemap.xml
