@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 
 export const Route = createFileRoute("/team/candidate-search")({
   head: () => ({
@@ -19,15 +17,6 @@ interface SearchResult {
   title: string;
   url: string;
   content: string;
-}
-
-interface Candidate {
-  name: string;
-  role: string;
-  company: string;
-  openToWork: "Yes" | "No" | "Unclear";
-  url: string;
-  note: string;
 }
 
 function CandidateSearchPage() {
@@ -111,10 +100,9 @@ function PasswordGate({ onSuccess }: { onSuccess: () => void }) {
 
 function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
   const [query, setQuery] = useState("");
-  const [linkedinOnly, setLinkedinOnly] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [summary, setSummary] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [searched, setSearched] = useState(false);
 
@@ -128,17 +116,17 @@ function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
       const res = await fetch("/api/team/candidate-search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query, linkedinOnly }),
+        body: JSON.stringify({ query }),
       });
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || "Search failed. Please try again.");
-        setCandidates([]);
+        setSummary("");
         setResults([]);
         return;
       }
-      setCandidates(data.candidates ?? []);
-      setResults(data.results ?? []);
+      setSummary(data.summary);
+      setResults(data.results);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -153,7 +141,7 @@ function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
 
   return (
     <section className="py-16">
-      <div className="container-prose max-w-5xl">
+      <div className="container-prose max-w-3xl">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-foreground">Candidate Search</h1>
@@ -166,81 +154,32 @@ function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
           </Button>
         </div>
 
-        <form onSubmit={onSubmit} className="mt-8 space-y-3">
-          <div className="flex gap-2">
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="e.g. Psychology teachers in Mumbai with online tutoring experience"
-            />
-            <Button type="submit" disabled={loading} className="shrink-0 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-              {loading ? "Searching…" : "Search"}
-            </Button>
-          </div>
-          <label className="flex items-center gap-2 text-sm text-body">
-            <Checkbox checked={linkedinOnly} onCheckedChange={(v) => setLinkedinOnly(!!v)} />
-            LinkedIn profiles only
-          </label>
+        <form onSubmit={onSubmit} className="mt-8 flex gap-2">
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="e.g. Psychology teachers in Mumbai with online tutoring experience"
+          />
+          <Button type="submit" disabled={loading} className="shrink-0 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+            {loading ? "Searching…" : "Search"}
+          </Button>
         </form>
 
         {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
         {!loading && searched && !error && (
           <div className="mt-8 space-y-6">
-            {candidates.length > 0 ? (
-              <Card className="overflow-hidden p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Role</TableHead>
-                      <TableHead>Company</TableHead>
-                      <TableHead>Open to Work</TableHead>
-                      <TableHead>Link</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {candidates.map((c) => (
-                      <TableRow key={c.url}>
-                        <TableCell className="font-medium text-foreground">{c.name}</TableCell>
-                        <TableCell className="text-body">{c.role}</TableCell>
-                        <TableCell className="text-body">{c.company}</TableCell>
-                        <TableCell>
-                          <span
-                            className={
-                              c.openToWork === "Yes"
-                                ? "rounded-full bg-teal/10 px-2 py-0.5 text-xs font-medium text-teal"
-                                : c.openToWork === "No"
-                                  ? "rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
-                                  : "rounded-full bg-amber-cta/10 px-2 py-0.5 text-xs font-medium text-amber-cta"
-                            }
-                          >
-                            {c.openToWork}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <a
-                            href={c.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-teal hover:text-navy"
-                          >
-                            Profile <ExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+            {summary && (
+              <Card className="p-6">
+                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">AI Summary</h2>
+                <p className="mt-2 whitespace-pre-wrap text-body leading-relaxed">{summary}</p>
               </Card>
-            ) : (
-              <p className="text-sm text-body">No candidate profiles found for this search. Try adjusting your query.</p>
             )}
 
             {results.length > 0 && (
               <div>
-                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">All search results</h2>
+                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Sources</h2>
                 <div className="mt-3 space-y-3">
                   {results.map((r) => (
                     <a
