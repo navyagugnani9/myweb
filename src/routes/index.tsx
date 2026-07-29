@@ -242,7 +242,7 @@ function Home() {
               { q: "Do you charge candidates for placement?", a: "No. AcadHire never charges candidates. Our fees are paid by the hiring organization only — registration, profile review, and placement are completely free for candidates." },
               { q: "What is your fee structure for employers?", a: "We work on a success-based engagement model. Fees are a percentage of the candidate's annual CTC, billed only on successful joining, with a standard replacement guarantee. Volume and retained mandates are priced separately — happy to share a proposal." },
               { q: "Can you handle bulk hiring requirements?", a: "Yes. We regularly handle bulk and project hiring for new center launches, admissions seasons, and large EdTech expansions — including walk-in drives, structured assessments, and dedicated account managers." },
-              { q: "Do you work across multiple cities?", a: "Yes. We have active candidate pools across Delhi NCR, Mumbai, Bengaluru, Hyderabad, Chennai, Pune, Kolkata, and Tier 2 cities, plus fully remote roles for EdTech." },
+              { q: "Do you work across multiple cities?", a: "Yes. We work across India, supporting education organisations with hiring requirements in metropolitan, Tier 2, and Tier 3 cities, as well as remote roles." },
             ].map((f, i) => (
               <AccordionItem key={i} value={`item-${i}`}>
                 <AccordionTrigger className="text-left font-semibold text-foreground">{f.q}</AccordionTrigger>
