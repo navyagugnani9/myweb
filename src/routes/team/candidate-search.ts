@@ -16,7 +16,7 @@ export const Route = createFileRoute("/api/team/candidate-search")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        if (!isAuthenticated(request)) {
+        if (!(await isAuthenticated(request))) {
           return Response.json({ error: "Not authenticated" }, { status: 401 });
         }
 

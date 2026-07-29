@@ -5,7 +5,7 @@ export const Route = createFileRoute("/api/team/session")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        return Response.json({ authenticated: isAuthenticated(request) });
+        return Response.json({ authenticated: await isAuthenticated(request) });
       },
     },
   },

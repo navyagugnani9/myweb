@@ -17,13 +17,13 @@ export const Route = createFileRoute("/api/team/login")({
           return Response.json({ error: "Invalid request" }, { status: 400 });
         }
 
-        if (!checkPassword(parsed.password)) {
+        if (!(await checkPassword(parsed.password))) {
           return Response.json({ error: "Incorrect password" }, { status: 401 });
         }
 
         return Response.json(
           { success: true },
-          { headers: { "Set-Cookie": sessionCookieHeader() } },
+          { headers: { "Set-Cookie": await sessionCookieHeader() } },
         );
       },
     },
