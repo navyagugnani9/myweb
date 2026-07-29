@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { ClipboardList, Search, UserCheck, Target, Clock, Shield, Award } from "lucide-react";
+import { ClipboardList, Search, UserCheck, Target, Clock, Shield, Award, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -200,12 +200,13 @@ function ForEmployersPage() {
       <section className="py-14">
         <div className="container-prose">
           <SectionHeading eyebrow="Why AcadHire" title="Why Employers Work With Us" />
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {[
               { icon: Target, title: "Sector specialists", desc: "Education only. No generalist guesswork." },
               { icon: Clock, title: "Fast shortlists", desc: "5–7 business days for most mandates." },
               { icon: Shield, title: "Replacement guarantee", desc: "Standard replacement on every placement." },
               { icon: Award, title: "Leadership-grade rigor", desc: "Deep reference checks and structured interviews." },
+              { icon: Sparkles, title: "AI-powered sourcing", desc: "Proprietary AI-powered sourcing tools support our recruiters in identifying strong candidates across the education sector." },
             ].map((b) => (
               <Card key={b.title} className="p-6">
                 <b.icon className="h-6 w-6 text-teal" />
