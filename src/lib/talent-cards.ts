@@ -90,6 +90,31 @@ export const TALENT_CARDS: TalentCardData[] = [
     ],
     status: "Selectively Exploring",
   },
+  {
+    candidateId: "AH 1045",
+    targetRole: "Education Operations & Strategy Leader",
+    roleCategory: "Operations & Leadership",
+    locations: ["Hyderabad"],
+    experienceYears: "15+ years",
+    sectorExperience: "K12 School Leadership, School Operations, Institutional Consulting and Organisational Excellence. Open to Full Time, Consulting and Leadership roles.",
+    currentResponsibility: [
+      { text: "Partnering with school owners and leadership teams to improve institutional performance through school transformation roadmaps, governance systems, leadership development and execution frameworks." },
+      { text: "Brings prior experience as a Founder Principal and Principal and Advisor across academics and operations." },
+      { text: "Founded and scaled a school to over 1,150 students, building a team of more than 60 teachers and 100 staff while establishing academic, operational and leadership systems from the ground up.", isAchievement: true },
+    ],
+    expectedSalaryRange: "₹30+ LPA",
+    openTo: [
+      "Head of Customer Success",
+      "Head of Implementation",
+      "School Partnerships",
+      "Regional Operations",
+      "School Operations",
+      "Strategy",
+      "Institutional Excellence",
+      "Growth & Expansion",
+    ],
+    status: "Actively Looking",
+  },
 ];
 
 export const PAGE_SIZE = 6;
