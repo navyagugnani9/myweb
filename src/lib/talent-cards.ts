@@ -115,6 +115,29 @@ export const TALENT_CARDS: TalentCardData[] = [
     ],
     status: "Actively Looking",
   },
+  {
+    candidateId: "AH 1046",
+    targetRole: "Sales & Channel Partnerships Leader",
+    roleCategory: "Sales & Admissions",
+    locations: ["Delhi NCR"],
+    experienceYears: "15+ years",
+    sectorExperience: "Higher Education, EdTech, Channel Sales, Strategic Partnerships and Business Development. Open to Full Time, Hybrid, Remote and Leadership roles.",
+    currentResponsibility: [
+      { text: "Managing end to end sales and channel partner operations for the Delhi NCR territory, including a network of more than 20 active partners, over 50 external partner staff and a 10 member internal operations team." },
+      { text: "Responsible for partner acquisition, onboarding, activation, negotiations, sales execution and coordination across marketing, operations and compliance teams." },
+      { text: "Delivered approximately 60% year on year territory growth while maintaining a compliant channel network with no escalations. Previously built and managed partner ecosystems of more than 50 partners and delivered 35% year on year revenue growth.", isAchievement: true },
+    ],
+    expectedSalaryRange: "₹20 LPA",
+    openTo: [
+      "Channel Development",
+      "Business Development Manager",
+      "Sales Manager",
+      "Channel Sales Manager",
+      "Strategic Partnerships",
+      "Territory and Regional Sales Leadership",
+    ],
+    status: "Actively Looking",
+  },
 ];
 
 export const PAGE_SIZE = 6;
