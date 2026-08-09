@@ -4,7 +4,6 @@ import { isAuthenticated } from "@/lib/team-auth.server";
 
 const BodySchema = z.object({
   query: z.string().trim().min(3).max(300),
-  linkedinOnly: z.boolean().optional(),
 });
 
 interface TavilyResult {
@@ -13,12 +12,8 @@ interface TavilyResult {
   content: string;
 }
 
-interface Candidate {
-  name: string;
-  role: string;
-  company: string;
-  openToWork: "Yes" | "No" | "Unclear";
-  url: string;
+interface PersonMatch {
+  index: number;
   note: string;
 }
 
@@ -55,8 +50,7 @@ export const Route = createFileRoute("/api/team/candidate-search")({
               api_key: tavilyKey,
               query: parsed.query,
               search_depth: "basic",
-              max_results: 8,
-              ...(parsed.linkedinOnly ? { include_domains: ["linkedin.com"] } : {}),
+              max_results: 10,
             }),
           });
           if (!tavilyRes.ok) {
@@ -76,14 +70,14 @@ export const Route = createFileRoute("/api/team/candidate-search")({
         }
 
         if (results.length === 0) {
-          return Response.json({ candidates: [], results: [] });
+          return Response.json({ people: [] });
         }
 
         const resultsList = results
           .map((r, i) => `${i + 1}. ${r.title}\n${r.url}\n${r.content}`)
           .join("\n\n");
 
-        let candidates: Candidate[] = [];
+        let matches: PersonMatch[] = [];
         try {
           const claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
             method: "POST",
@@ -94,9 +88,9 @@ export const Route = createFileRoute("/api/team/candidate-search")({
             },
             body: JSON.stringify({
               model: "claude-haiku-4-5-20251001",
-              max_tokens: 1500,
+              max_tokens: 1000,
               system:
-                "You help an education-sector recruiter review public web search results for candidate sourcing. Given numbered search results, identify ONLY the ones that are an actual individual person who could be a relevant candidate — skip job ads, company pages, generic articles, and listings. Also skip anyone who appears to run their own independent or private practice (they are not a fit for an institutional hire) unless the query explicitly asks for independent practitioners. For each genuine candidate, extract: their name, current role/title, current employer/company (school or organisation name if identifiable), whether they appear open to work (Yes if explicitly stated e.g. '#OpenToWork' or similar, No if currently employed with no such signal, Unclear if not enough information), their profile URL, and a one-sentence note on why they're relevant. Respond with ONLY a JSON array (no markdown, no prose, no code fences) of objects with keys: name, role, company, openToWork, url, note. If no genuine candidates are found, respond with exactly: []",
+                "You help an education-sector recruiter review public web search results for candidate sourcing. Given numbered search results, identify ONLY the ones that describe a specific, named, real individual person who could be a relevant candidate. Exclude: job listings/postings, company or organisation pages, event/fair announcements, generic articles, blog posts about a topic, and anything that does not name a specific person. Respond with ONLY a JSON array (no prose, no markdown, no code fences) of objects with keys: index (the result number) and note (a one-sentence explanation of who this person is and why they're relevant, using only facts present in the snippet). If no results are genuine individual people, respond with exactly: []",
               messages: [
                 {
                   role: "user",
@@ -114,17 +108,25 @@ export const Route = createFileRoute("/api/team/candidate-search")({
           const rawText: string = claudeData.content?.[0]?.text ?? "[]";
           const cleaned = rawText.trim().replace(/^```(json)?/i, "").replace(/```$/, "").trim();
           try {
-            candidates = JSON.parse(cleaned);
+            matches = JSON.parse(cleaned);
           } catch (parseErr) {
             console.error("Failed to parse Claude JSON:", parseErr, rawText);
-            candidates = [];
+            matches = [];
           }
         } catch (err) {
           console.error("Anthropic request failed:", err);
           return Response.json({ error: "AI summary failed" }, { status: 502 });
         }
 
-        return Response.json({ candidates, results });
+        const people = matches
+          .map((m) => {
+            const r = results[m.index - 1];
+            if (!r) return null;
+            return { title: r.title, url: r.url, content: r.content, note: m.note };
+          })
+          .filter((p): p is NonNullable<typeof p> => p !== null);
+
+        return Response.json({ people });
       },
     },
   },
