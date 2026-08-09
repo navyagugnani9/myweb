@@ -13,10 +13,11 @@ export const Route = createFileRoute("/team/candidate-search")({
   component: CandidateSearchPage,
 });
 
-interface SearchResult {
+interface Person {
   title: string;
   url: string;
   content: string;
+  note: string;
 }
 
 function CandidateSearchPage() {
@@ -102,8 +103,7 @@ function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [summary, setSummary] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
   const [searched, setSearched] = useState(false);
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -121,12 +121,10 @@ function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || "Search failed. Please try again.");
-        setSummary("");
-        setResults([]);
+        setPeople([]);
         return;
       }
-      setSummary(data.summary);
-      setResults(data.results);
+      setPeople(data.people ?? []);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -169,35 +167,31 @@ function SearchTool({ onLoggedOut }: { onLoggedOut: () => void }) {
         {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
         {!loading && searched && !error && (
-          <div className="mt-8 space-y-6">
-            {summary && (
-              <Card className="p-6">
-                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">AI Summary</h2>
-                <p className="mt-2 whitespace-pre-wrap text-body leading-relaxed">{summary}</p>
-              </Card>
-            )}
-
-            {results.length > 0 && (
-              <div>
-                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Sources</h2>
+          <div className="mt-8">
+            {people.length > 0 ? (
+              <>
+                <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {people.length} {people.length === 1 ? "person" : "people"} found
+                </h2>
                 <div className="mt-3 space-y-3">
-                  {results.map((r) => (
-                    <a
-                      key={r.url}
-                      href={r.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block rounded-xl border border-border p-4 transition-colors hover:border-teal/40"
-                    >
-                      <p className="flex items-center gap-1.5 font-semibold text-foreground">
-                        {r.title} <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-                      </p>
-                      <p className="mt-1 truncate text-xs text-teal">{r.url}</p>
-                      <p className="mt-1.5 text-sm text-body line-clamp-2">{r.content}</p>
-                    </a>
+                  {people.map((p) => (
+                    <Card key={p.url} className="p-5">
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 font-semibold text-foreground hover:text-teal"
+                      >
+                        {p.title} <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                      </a>
+                      <p className="mt-1 truncate text-xs text-teal">{p.url}</p>
+                      <p className="mt-2 text-sm text-body leading-relaxed">{p.note}</p>
+                    </Card>
                   ))}
                 </div>
-              </div>
+              </>
+            ) : (
+              <p className="text-sm text-body">No individual candidates found for this search. Try adjusting your query.</p>
             )}
           </div>
         )}
