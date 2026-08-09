@@ -1,18 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ShieldCheck, Search, MessageSquareText, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TalentCard } from "@/components/TalentCard";
 import { RequestProfileDialog } from "@/components/RequestProfileDialog";
-import { TALENT_CARDS, PAGE_SIZE, type TalentCardData } from "@/lib/talent-cards";
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from "@/components/ui/select";
+import { TALENT_CARDS, PAGE_SIZE, type TalentCardData, type AvailabilityStatus } from "@/lib/talent-cards";
 
 export const Route = createFileRoute("/talent-cards")({
   head: () => ({
     meta: [
-      { title: "AcadHire Talent Cards | Discover Pre-Screened Education Talent" },
-      { name: "description", content: "Browse anonymous, pre-screened education professionals through AcadHire Talent Cards, and request the complete profile of a candidate who appears relevant to your organisation." },
-      { property: "og:title", content: "AcadHire Talent Cards" },
+      { title: "Explore Screened Education Talent | AcadHire Talent Cards" },
+      { name: "description", content: "Browse selected professionals across academic, leadership, admissions, operations and education business functions. Candidate identities remain confidential until employer interest and candidate consent are established." },
+      { property: "og:title", content: "Explore Screened Education Talent | AcadHire" },
       { property: "og:description", content: "Discover pre-screened education talent, with full profiles shared only after verified employer interest and candidate consent." },
       { property: "og:url", content: "/talent-cards" },
     ],
@@ -27,13 +30,59 @@ const PROCESS_STEPS = [
   { icon: Handshake, title: "Connect", desc: "AcadHire verifies the requirement, obtains the candidate's consent and coordinates the introduction." },
 ];
 
+const ALL = "all";
+
+function parseLeadingNumber(text: string): number | null {
+  const match = text.replace(/,/g, "").match(/\d+/);
+  return match ? parseInt(match[0], 10) : null;
+}
+
 function TalentCardsPage() {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selectedCard, setSelectedCard] = useState<TalentCardData | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const visibleCards = TALENT_CARDS.slice(0, visibleCount);
-  const hasMore = visibleCount < TALENT_CARDS.length;
+  const [roleCategory, setRoleCategory] = useState(ALL);
+  const [location, setLocation] = useState(ALL);
+  const [status, setStatus] = useState(ALL);
+  const [experienceBucket, setExperienceBucket] = useState(ALL);
+
+  const roleCategories = useMemo(() => Array.from(new Set(TALENT_CARDS.map((c) => c.roleCategory))), []);
+  const locations = useMemo(() => Array.from(new Set(TALENT_CARDS.flatMap((c) => c.locations))), []);
+  const statuses = useMemo(() => Array.from(new Set(TALENT_CARDS.map((c) => c.status))) as AvailabilityStatus[], []);
+
+  const experienceBuckets = [
+    { value: "0-5", label: "0–5 years", test: (n: number) => n < 5 },
+    { value: "5-10", label: "5–10 years", test: (n: number) => n >= 5 && n < 10 },
+    { value: "10-15", label: "10–15 years", test: (n: number) => n >= 10 && n < 15 },
+    { value: "15+", label: "15+ years", test: (n: number) => n >= 15 },
+  ];
+
+  const filteredCards = useMemo(() => {
+    return TALENT_CARDS.filter((c) => {
+      if (roleCategory !== ALL && c.roleCategory !== roleCategory) return false;
+      if (location !== ALL && !c.locations.includes(location)) return false;
+      if (status !== ALL && c.status !== status) return false;
+      if (experienceBucket !== ALL) {
+        const n = parseLeadingNumber(c.experienceYears);
+        const bucket = experienceBuckets.find((b) => b.value === experienceBucket);
+        if (n === null || !bucket?.test(n)) return false;
+      }
+      return true;
+    });
+  }, [roleCategory, location, status, experienceBucket]);
+
+  const visibleCards = filteredCards.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredCards.length;
+  const filtersActive = roleCategory !== ALL || location !== ALL || status !== ALL || experienceBucket !== ALL;
+
+  const resetFilters = () => {
+    setRoleCategory(ALL);
+    setLocation(ALL);
+    setStatus(ALL);
+    setExperienceBucket(ALL);
+    setVisibleCount(PAGE_SIZE);
+  };
 
   const handleRequestProfile = (card: TalentCardData) => {
     setSelectedCard(card);
@@ -46,19 +95,13 @@ function TalentCardsPage() {
       <section className="relative overflow-hidden bg-hero-navy text-white">
         <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden />
         <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-teal/20 blur-3xl" aria-hidden />
-        <div className="container-prose relative py-14 md:py-20 max-w-3xl text-center">
+        <div className="container-prose relative section-y max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">AcadHire Talent Cards</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-[1.1]">
-            Discover Pre-screened Education Talent
+            Explore Screened Education Talent
           </h1>
           <p className="mt-6 text-lg text-white/80">
-            Explore selected professionals from across the education sector who are actively looking or selectively exploring new opportunities.
-          </p>
-          <p className="mt-3 text-base text-white/70">
-            Each AcadHire Talent Card presents relevant experience, capabilities, career preferences and availability while protecting the candidate's identity.
-          </p>
-          <p className="mt-3 text-base text-white/70">
-            Complete profiles are shared after employer interest is verified and the candidate provides consent.
+            Browse selected professionals across academic, leadership, admissions, operations and education business functions. Candidate identities remain confidential until employer interest and candidate consent are established.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Button
@@ -79,14 +122,14 @@ function TalentCardsPage() {
       </section>
 
       {/* INTRO */}
-      <section className="pt-14 pb-8 md:pt-16 md:pb-10">
+      <section className="pt-16 pb-10 md:pt-24 md:pb-14">
         <div className="container-prose">
           <SectionHeading
             eyebrow="Why Talent Cards"
             title="Meet Talent Before You Open a Vacancy"
             subtitle="Some of the strongest hires begin before a position is formally advertised. AcadHire Talent Cards allow schools, EdTech companies, universities, training institutes and education consultancies to discover selected professionals who may be suitable for current or upcoming requirements. Every featured candidate is reviewed by AcadHire before being added to the platform."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
             {PROCESS_STEPS.map((s, i) => (
               <div key={s.title} className="relative rounded-xl border border-border bg-surface p-6">
                 <div className="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">
@@ -102,14 +145,54 @@ function TalentCardsPage() {
       </section>
 
       {/* FULL LISTING */}
-      <section id="talent-cards-listing" className="pt-8 pb-14 md:pt-10 md:pb-16 scroll-mt-20">
+      <section id="talent-cards-listing" className="pt-10 pb-16 md:pt-14 md:pb-24 scroll-mt-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Browse all" title="Talent Cards" />
-          <div className="mt-14 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleCards.map((card) => (
-              <TalentCard key={card.candidateId} card={card} onRequestProfile={handleRequestProfile} />
-            ))}
+
+          {/* FILTERS */}
+          <div className="mt-10 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-surface p-4">
+            <Select value={roleCategory} onValueChange={(v) => { setRoleCategory(v); setVisibleCount(PAGE_SIZE); }}>
+              <SelectTrigger className="w-auto min-w-[160px]"><SelectValue placeholder="Function" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All functions</SelectItem>
+                {roleCategories.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Select value={location} onValueChange={(v) => { setLocation(v); setVisibleCount(PAGE_SIZE); }}>
+              <SelectTrigger className="w-auto min-w-[160px]"><SelectValue placeholder="Location" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All locations</SelectItem>
+                {locations.map((l) => <SelectItem key={l} value={l}>{l}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Select value={experienceBucket} onValueChange={(v) => { setExperienceBucket(v); setVisibleCount(PAGE_SIZE); }}>
+              <SelectTrigger className="w-auto min-w-[160px]"><SelectValue placeholder="Experience" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All experience</SelectItem>
+                {experienceBuckets.map((b) => <SelectItem key={b.value} value={b.value}>{b.label}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Select value={status} onValueChange={(v) => { setStatus(v); setVisibleCount(PAGE_SIZE); }}>
+              <SelectTrigger className="w-auto min-w-[160px]"><SelectValue placeholder="Availability" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL}>All availability</SelectItem>
+                {statuses.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            {filtersActive && (
+              <Button variant="ghost" size="sm" onClick={resetFilters}>Clear filters</Button>
+            )}
           </div>
+
+          {filteredCards.length === 0 ? (
+            <p className="mt-16 text-center text-body">No talent cards match these filters. Try adjusting your selection.</p>
+          ) : (
+            <div className="mt-10 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {visibleCards.map((card) => (
+                <TalentCard key={card.candidateId} card={card} onRequestProfile={handleRequestProfile} />
+              ))}
+            </div>
+          )}
           {hasMore && (
             <div className="mt-10 text-center">
               <Button variant="outline" size="lg" onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}>
@@ -122,7 +205,7 @@ function TalentCardsPage() {
 
       {/* DIDN'T FIND THE RIGHT PROFILE */}
       <section className="bg-hero-navy text-white">
-        <div className="container-prose pt-16 pb-10 text-center max-w-2xl mx-auto">
+        <div className="container-prose pt-16 pb-12 md:pt-24 md:pb-16 text-center max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white">Didn't Find the Right Profile?</h2>
           <p className="mt-3 text-white/80">
             Tell us what you are hiring for, and AcadHire will conduct a targeted search across its education talent network.
