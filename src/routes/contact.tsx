@@ -1,10 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Mail, Phone, MapPin, Clock, UserCheck, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, UserCheck, Linkedin, Briefcase, GraduationCap, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -62,7 +62,7 @@ function ContactPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white py-16">
+      <section className="bg-hero-navy text-white section-y">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Contact</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Get in Touch</h1>
@@ -70,7 +70,42 @@ function ContactPage() {
         </div>
       </section>
 
-      <section className="py-14">
+      <section className="section-y bg-surface">
+        <div className="container-prose">
+          <div className="grid gap-6 md:grid-cols-3">
+            <Card className="p-7">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-navy-foreground"><Briefcase className="h-5 w-5" /></span>
+              <h2 className="mt-5 text-lg font-bold text-foreground">I am hiring</h2>
+              <p className="mt-2 text-sm text-body">Submit a recruitment requirement.</p>
+              <Button asChild className="mt-5 w-full bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+                <Link to="/for-employers">Submit a Hiring Requirement</Link>
+              </Button>
+            </Card>
+            <Card className="p-7">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-teal/10 text-teal"><GraduationCap className="h-5 w-5" /></span>
+              <h2 className="mt-5 text-lg font-bold text-foreground">I am looking for an opportunity</h2>
+              <p className="mt-2 text-sm text-body">Join the candidate database or browse vacancies.</p>
+              <Button asChild variant="outline" className="mt-5 w-full">
+                <Link to="/for-candidates">Explore Opportunities</Link>
+              </Button>
+            </Card>
+            <Card className="p-7">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy/5 text-navy"><MessageCircle className="h-5 w-5" /></span>
+              <h2 className="mt-5 text-lg font-bold text-foreground">General enquiry</h2>
+              <p className="mt-2 text-sm text-body">Contact AcadHire directly.</p>
+              <Button
+                variant="outline"
+                className="mt-5 w-full"
+                onClick={() => document.getElementById("general-enquiry")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Contact AcadHire
+              </Button>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="general-enquiry" className="section-y scroll-mt-20">
         <div className="container-prose grid gap-10 lg:grid-cols-2">
           {/* Contact info */}
           <div>

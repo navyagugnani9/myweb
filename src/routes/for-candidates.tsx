@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Sparkles, BadgeCheck, MessageSquare, UserCheck } from "lucide-react";
+import { Sparkles, BadgeCheck, MessageSquare, UserCheck, Search, Lock, Bell, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -107,7 +107,7 @@ function ForCandidatesPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white py-16">
+      <section className="bg-hero-navy text-white section-y">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Candidates</p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Find Your Next Role in Education</h1>
@@ -118,10 +118,10 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="py-14">
+      <section className="section-y">
         <div className="container-prose">
           <SectionHeading eyebrow="What you get" title="What We Offer Candidates" />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
             {[
               { icon: Sparkles, title: "Curated Opportunities", desc: "Roles aligned to your experience, expertise, and location, not a generic job blast." },
               { icon: BadgeCheck, title: "No Cost to Candidates", desc: "AcadHire never charges candidates. Free registration, free placement, always." },
@@ -137,7 +137,34 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section id="candidate-form" className="py-14 bg-surface scroll-mt-20">
+      <section className="section-y bg-surface">
+        <div className="container-prose">
+          <SectionHeading
+            eyebrow="Why join"
+            title="Why Register With AcadHire"
+            subtitle="Joining the AcadHire talent network allows your profile to be considered for suitable education opportunities, including selected searches that may not be advertised publicly."
+          />
+          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              { icon: Search, title: "Current vacancies", desc: "Roles actively being hired for right now." },
+              { icon: Lock, title: "Confidential searches", desc: "Leadership and senior mandates not advertised publicly." },
+              { icon: Bell, title: "Upcoming requirements", desc: "Roles organisations are preparing to open." },
+              { icon: Database, title: "Talent database matches", desc: "Relevant opportunities identified through the AcadHire talent database." },
+            ].map((b) => (
+              <Card key={b.title} className="p-6">
+                <b.icon className="h-6 w-6 text-teal" />
+                <h3 className="mt-4 font-bold text-foreground text-sm">{b.title}</h3>
+                <p className="mt-2 text-sm text-body">{b.desc}</p>
+              </Card>
+            ))}
+          </div>
+          <p className="mt-8 text-xs text-muted-foreground max-w-2xl">
+            Registering does not guarantee that every candidate will be contacted — profiles are matched against specific requirements as they arise.
+          </p>
+        </div>
+      </section>
+
+      <section id="candidate-form" className="section-y bg-surface scroll-mt-20">
         <div className="container-prose max-w-3xl">
           <SectionHeading eyebrow="Register" title="Register Your Profile" subtitle="Share your details and resume. Our team will reach out only when there's a relevant match." />
 
@@ -276,10 +303,10 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="py-14">
+      <section className="section-y">
         <div className="container-prose">
           <SectionHeading eyebrow="Next steps" title="What Happens After You Register" />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
             {[
               { step: 1, title: "Profile review", desc: "Our team reviews your profile against current and upcoming mandates." },
               { step: 2, title: "Conversation", desc: "If there's a fit, a consultant reaches out for a quick screening call." },

@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, Award, LineChart, Users, ClipboardList, Search, FileSearch, UserCheck, Calendar, Handshake, Building2, Target } from "lucide-react";
+import {
+  BookOpen, LineChart, Users, Search, Target, ArrowRight,
+  FileText, Wallet, Clock, MapPin, CheckCircle2, AlertCircle, MessageSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -7,10 +10,10 @@ import { SectionHeading } from "@/components/SectionHeading";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Recruitment Services | Academic, Leadership, Sales & Operations Hiring | AcadHire" },
-      { name: "description", content: "Specialist recruitment across four verticals — academic, leadership, sales & admissions, and operations & success hiring for the education sector." },
+      { title: "Recruitment Services | Leadership, Academic, Admissions & Operations Hiring | AcadHire" },
+      { name: "description", content: "AcadHire's recruitment support across the education sector — leadership and senior search, academic and teaching recruitment, admissions and growth recruitment, and operations and functional recruitment." },
       { property: "og:title", content: "Recruitment Services | AcadHire" },
-      { property: "og:description", content: "Four hiring verticals, one specialist partner for the education sector." },
+      { property: "og:description", content: "What recruitment work AcadHire can handle, across four categories of education hiring." },
       { property: "og:url", content: "/services" },
     ],
     links: [{ rel: "canonical", href: "/services" }],
@@ -18,166 +21,165 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
 });
 
-const services = [
+const LEADERSHIP_PROCESS = [
+  "Requirement Calibration",
+  "Market Mapping",
+  "Target Organisation Identification",
+  "Direct Candidate Search",
+  "Structured Screening",
+  "Shortlist Presentation",
+  "Interview Support",
+  "Offer and Joining Coordination",
+];
+
+const LEADERSHIP_FLOW = [
+  "Role Calibration",
+  "Market Mapping",
+  "Targeted Outreach",
+  "Leadership Screening",
+  "Shortlist",
+  "Interview and Appointment Support",
+];
+
+const OTHER_CATEGORIES = [
   {
     icon: BookOpen,
-    title: "Academic Hiring",
-    desc: [
-      "We hire the people who teach, train, and shape learning experiences — from full-time classroom teachers to part-time subject experts and curriculum specialists.",
-      "Our academic mandates cover CBSE, ICSE, IB, IGCSE, state boards, and competitive exam coaching, alongside content and curriculum roles for EdTech platforms.",
-      "Every academic candidate is screened for subject depth, classroom or content delivery, and cultural fit with your institution's pedagogy.",
-    ],
-    roles: ["Teachers (PRT, TGT, PGT)", "Tutors and Mentors", "Faculty & Lecturers", "Trainers", "Subject Matter Experts", "Curriculum Specialists"],
-    for: "K-12 schools, coaching institutes, tutoring centers, EdTech content teams, training academies.",
-  },
-  {
-    icon: Award,
-    title: "Leadership Hiring",
-    desc: [
-      "Senior hires define the next five years of any education organization. We run discreet, retained-style searches for Principals, Academic Heads, Business Heads, and CXO-level roles.",
-      "Our leadership process includes structured competency interviews, deep reference checks, and (where required) academic vision presentations and case discussions.",
-      "We are equally comfortable hiring for an established institution and a fast-scaling EdTech business.",
-    ],
-    roles: ["Principals & Vice Principals", "Academic Heads", "Business Heads & Center Heads", "Operations Heads", "VP / Director-level roles"],
-    for: "School groups, EdTech companies, training institutes, higher education and skill development organizations.",
+    title: "Academic and Teaching Recruitment",
+    desc: "For teachers, coordinators, curriculum specialists, teacher trainers and academic professionals.",
+    roles: ["Teachers (PRT, TGT, PGT)", "Curriculum Specialists", "Teacher Trainers", "Academic Coordinators", "Subject Matter Experts"],
   },
   {
     icon: LineChart,
-    title: "Sales & Admissions Hiring",
-    desc: [
-      "Admissions and inside sales are the revenue engine of every education business. We hire counsellors and sales managers who can balance empathy with conversion.",
-      "We benchmark candidates on funnel ownership, ticket size, conversion ratios, and CRM discipline — not just years of experience.",
-      "From single-counsellor hires to building full pods for new center launches, we scale with you.",
-    ],
+    title: "Admissions, Counselling and Growth Recruitment",
+    desc: "For admissions, education counselling, student recruitment, sales and related roles.",
     roles: ["Admissions Counsellors", "Inside Sales Executives", "Enrollment Managers", "Business Development Managers", "Partnerships & Channel Managers"],
-    for: "EdTech platforms, test prep companies, coaching institutes, tutoring chains, skill development firms.",
   },
   {
     icon: Users,
-    title: "Operations & Success Hiring",
-    desc: [
-      "Behind every great classroom and every great EdTech product is an operations team that makes delivery reliable. We hire the people who run academic operations, center operations, and student/customer success.",
-      "Our candidates come with experience in batch management, SOP design, NPS improvement, and cross-functional coordination with academic and product teams.",
-      "We help you build the operating spine that protects your brand and your renewals.",
-    ],
-    roles: ["Academic Operations Managers", "Center Operations Managers", "Student Success Managers", "Customer Success Managers", "Program Managers"],
-    for: "EdTech companies, multi-center education businesses, tutoring chains, training institutes.",
+    title: "Operations and Functional Recruitment",
+    desc: "For school operations, HR, marketing, finance, administration and other education business functions.",
+    roles: ["Academic Operations Managers", "Center Operations Managers", "HR & Administration", "Finance & Marketing", "Student & Customer Success"],
   },
 ];
 
-const specialistServices = [
-  {
-    icon: ClipboardList,
-    title: "Specialist Recruitment",
-    desc: "End to end recruitment support for academic, commercial, operational, and support roles across education organisations. We manage sourcing, preliminary screening, candidate evaluation, interview coordination, and joining follow up.",
-  },
-  {
-    icon: Search,
-    title: "Leadership Search",
-    desc: "Discreet and targeted search for senior academic, business, operational, and institutional leadership positions. Each search includes market mapping, direct outreach, and a detailed assessment of leadership experience, motivation, and organisational fit.",
-  },
-  {
-    icon: Building2,
-    title: "Campus and Expansion Hiring",
-    desc: "Structured hiring support for new campuses, multiple locations, and large recruitment requirements. We help prioritise critical roles, plan hiring timelines, build candidate pipelines, and coordinate several searches simultaneously.",
-  },
-  {
-    icon: Target,
-    title: "Talent Mapping and Assessment",
-    desc: "Research led candidate mapping, market insights, compensation benchmarking, and structured evaluation to support informed hiring decisions. This service helps institutions understand talent availability before beginning or expanding a search.",
-  },
+const DELIVERABLES = [
+  { icon: FileText, label: "Resume" },
+  { icon: CheckCircle2, label: "AcadHire screening summary" },
+  { icon: Users, label: "Current organisation and relevant experience" },
+  { icon: Wallet, label: "Current and expected compensation" },
+  { icon: Clock, label: "Notice period or joining availability" },
+  { icon: MapPin, label: "Location and relocation considerations" },
+  { icon: Target, label: "Key alignment with the role" },
+  { icon: AlertCircle, label: "Relevant concerns or gaps identified during screening" },
+  { icon: MessageSquare, label: "Candidate interest and motivation" },
 ];
 
 function ServicesPage() {
   return (
     <>
-      <section className="bg-hero-navy text-white py-16">
+      <section className="bg-hero-navy text-white section-y">
         <div className="container-prose max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-white/70">Our Services</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Recruitment Services Built for Education</h1>
-          <p className="mt-5 text-lg text-white/80">Four specialist hiring verticals covering every critical role in your organization.</p>
+          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Recruitment Support Across the Education Sector</h1>
+          <p className="mt-5 text-lg text-white/80">AcadHire supports different levels and types of hiring — from senior leadership search to academic, admissions and operations recruitment.</p>
         </div>
       </section>
 
-      <section className="py-14 md:py-16">
+      {/* LEADERSHIP SEARCH — most prominent */}
+      <section className="bg-navy text-white section-y">
         <div className="container-prose">
-          <SectionHeading eyebrow="How we help" title="Specialist Recruitment Services" />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {specialistServices.map((s) => (
-              <Card key={s.title} className="p-7 hover:shadow-elegant transition-shadow">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-navy-foreground">
-                  <s.icon className="h-8 w-8" />
-                </span>
-                <h3 className="mt-5 text-2xl font-bold text-foreground">{s.title}</h3>
-                <p className="mt-2 text-base text-body leading-[1.5]">{s.desc}</p>
-              </Card>
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-teal">Leadership and Senior Search</p>
+            <h2 className="mt-4 text-2xl md:text-3xl font-bold text-white leading-snug">
+              Critical education leadership appointments require a more targeted search process.
+            </h2>
+            <p className="mt-4 text-white/80 leading-relaxed">
+              AcadHire supports schools and education organisations with focused searches for senior academic and business leadership positions where relevant candidates may not be actively applying through job portals.
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {["Principal", "Head of School", "Deputy Head", "Academic Head", "Director", "Business Head", "Senior functional leadership"].map((r) => (
+              <span key={r} className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-sm text-white/90">{r}</span>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="pt-14 md:pt-16 pb-6">
-        <div className="container-prose">
-          <SectionHeading eyebrow="Our services" title="Explore our hiring expertise" />
-        </div>
-      </section>
-
-      {services.map((s, i) => (
-        <section key={s.title} className={`${i === 0 ? "pt-6" : "pt-14 md:pt-16"} pb-14 md:pb-16 ${i % 2 === 0 ? "" : "bg-surface"}`}>
-          <div className="container-prose grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-            <div className="flex h-full flex-col justify-between">
-              <div>
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-navy text-navy-foreground">
-                  <s.icon className="h-6 w-6" />
-                </span>
-                <h2 className="mt-5 text-3xl md:text-4xl font-bold text-foreground">{s.title}</h2>
-                <div className="mt-5 space-y-4 text-body">
-                  {s.desc.map((p, idx) => <p key={idx}>{p}</p>)}
-                </div>
+          <div className="mt-10 flex flex-wrap items-center gap-x-1 gap-y-3">
+            {LEADERSHIP_FLOW.map((step, i) => (
+              <div key={step} className="flex items-center gap-1">
+                <span className="rounded-lg bg-white/10 px-3.5 py-2 text-sm font-medium text-white">{step}</span>
+                {i < LEADERSHIP_FLOW.length - 1 && <ArrowRight className="h-4 w-4 text-white/40 shrink-0" />}
               </div>
-              <Button asChild className="mt-7 self-start bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
-                <Link to="/for-employers">Submit a Hiring Requirement</Link>
-              </Button>
-            </div>
-            <div className="space-y-4">
-              <Card className="p-6">
-                <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide text-teal">Roles Covered</h4>
-                <ul className="mt-4 space-y-2 text-sm text-body">
-                  {s.roles.map((r) => (
+            ))}
+          </div>
+
+          <Button asChild className="mt-10 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+            <Link to="/for-employers">Submit a Hiring Requirement</Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* OTHER CATEGORIES */}
+      <section className="section-y">
+        <div className="container-prose">
+          <SectionHeading eyebrow="Other recruitment categories" title="Academic, Admissions and Operations Recruitment" />
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
+            {OTHER_CATEGORIES.map((c) => (
+              <Card key={c.title} className="p-7 hover:shadow-elegant transition-shadow">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-navy-foreground">
+                  <c.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-foreground leading-snug">{c.title}</h3>
+                <p className="mt-2 text-sm text-body leading-relaxed">{c.desc}</p>
+                <ul className="mt-4 space-y-1.5 border-t border-border pt-4 text-sm text-body">
+                  {c.roles.map((r) => (
                     <li key={r} className="flex items-start gap-2">
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-cta" /> {r}
                     </li>
                   ))}
                 </ul>
               </Card>
-              <Card className="p-6 bg-navy/5 border-navy/10">
-                <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide text-teal">Who It's For</h4>
-                <p className="mt-3 text-sm text-body">{s.for}</p>
-              </Card>
-            </div>
+            ))}
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
-      <section className="py-14 md:py-20 bg-background">
+      {/* PROCESS (general) */}
+      <section className="bg-surface section-y">
         <div className="container-prose">
-          <SectionHeading eyebrow="Our process" title="How an AcadHire Mandate Runs" />
-          <div className="mt-14 grid gap-6 md:grid-cols-3 lg:grid-cols-6">
-            {[
-              { icon: ClipboardList, title: "Briefing" },
-              { icon: Search, title: "Sourcing" },
-              { icon: FileSearch, title: "Screening" },
-              { icon: UserCheck, title: "Shortlist" },
-              { icon: Calendar, title: "Coordination" },
-              { icon: Handshake, title: "Offer & Onboarding" },
-            ].map((s, i) => (
-              <div key={s.title} className="p-5 rounded-xl border border-border text-center">
-                <div className="mx-auto inline-flex h-9 w-9 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">{i + 1}</div>
-                <s.icon className="mx-auto mt-4 h-6 w-6 text-teal" />
-                <h4 className="mt-3 font-semibold text-foreground text-sm">{s.title}</h4>
+          <SectionHeading eyebrow="Our process" title="How We Approach Every Search" />
+          <div className="mt-16 grid gap-6 md:grid-cols-4">
+            {LEADERSHIP_PROCESS.map((step, i) => (
+              <div key={step} className="relative p-5 rounded-xl bg-background border border-border">
+                <div className="absolute -top-3 left-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">
+                  {i + 1}
+                </div>
+                <p className="mt-2 font-semibold text-foreground text-sm">{step}</p>
               </div>
             ))}
           </div>
+          <p className="mt-8 text-sm text-body max-w-2xl">
+            Candidates are pre screened against the role requirement before reaching your shortlist. Reference checks can be conducted as part of selected senior and leadership searches.
+          </p>
+        </div>
+      </section>
+
+      {/* WHAT YOU RECEIVE */}
+      <section className="section-y">
+        <div className="container-prose">
+          <SectionHeading eyebrow="Deliverables" title="What You Receive With Each Shortlist" subtitle="AcadHire provides assessed shortlists, not forwarded applications." />
+          <Card className="mt-16 p-6 md:p-10">
+            <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+              {DELIVERABLES.map((d) => (
+                <div key={d.label} className="flex items-center gap-3">
+                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-teal">
+                    <d.icon className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm font-medium text-foreground">{d.label}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
         </div>
       </section>
     </>

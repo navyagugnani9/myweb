@@ -50,7 +50,7 @@ function UnsubscribePage() {
   }
 
   return (
-    <section className="py-14">
+    <section className="section-y">
       <div className="container-prose max-w-md">
         <Card className="p-8 text-center">
           {state === 'loading' && <p className="text-body">Checking your link…</p>}
