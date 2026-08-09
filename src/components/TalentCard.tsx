@@ -100,7 +100,7 @@ export function TalentCard({ card, onRequestProfile }: Props) {
           className="w-full bg-navy text-navy-foreground transition-colors hover:bg-navy/90 group-hover:bg-teal"
           onClick={() => onRequestProfile(card)}
         >
-          Request Full Profile
+          Express Interest
           <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
       </div>
