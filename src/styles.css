@@ -161,7 +161,7 @@
 @layer components {
   .container-prose {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.25rem;
@@ -178,6 +178,19 @@
     .container-prose {
       padding-left: 2.5rem;
       padding-right: 2.5rem;
+    }
+  }
+
+  /* Consistent vertical rhythm for major page sections: ~64px on mobile,
+     ~96px on desktop (within the 96–120px range used site-wide). */
+  .section-y {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  @media (min-width: 768px) {
+    .section-y {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
     }
   }
 }
