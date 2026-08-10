@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-export function SectionHeading({ eyebrow, title, subtitle, align = "center", className }: Props) {
+export function SectionHeading({ eyebrow, title, subtitle, align = "left", className }: Props) {
   return (
     <div className={cn(align === "center" ? "text-center mx-auto max-w-3xl" : "text-left max-w-3xl", className)}>
       {eyebrow && (
@@ -18,7 +18,7 @@ export function SectionHeading({ eyebrow, title, subtitle, align = "center", cla
       )}
       <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">{title}</h2>
       {subtitle && (
-        <p className={cn("mt-5 max-w-[620px] text-base md:text-lg text-body leading-relaxed", align === "center" && "mx-auto")}>
+        <p className={cn("mt-4 max-w-[600px] text-base md:text-lg text-body leading-relaxed", align === "center" && "mx-auto")}>
           {subtitle}
         </p>
       )}

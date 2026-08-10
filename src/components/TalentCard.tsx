@@ -1,18 +1,19 @@
-import { MapPin, Briefcase, Clock, Wallet, Building2, CalendarClock, Star, ArrowRight } from "lucide-react";
+import { MapPin, Briefcase, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import type { TalentCardData } from "@/lib/talent-cards";
 
 interface Props {
   card: TalentCardData;
-  onRequestProfile: (card: TalentCardData) => void;
+  onView: (card: TalentCardData) => void;
 }
 
-export function TalentCard({ card, onRequestProfile }: Props) {
+export function TalentCard({ card, onView }: Props) {
   return (
-    <Card className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-0 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-elegant hover:border-teal/40">
-      {/* Header */}
+    <Card
+      onClick={() => onView(card)}
+      className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card p-0 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-elegant hover:border-teal/40"
+    >
       <div className="bg-surface px-6 pb-5 pt-6">
         <Badge variant="outline" className="border-navy/20 bg-navy/5 text-navy font-semibold tracking-wide">
           Candidate {card.candidateId}
@@ -21,9 +22,8 @@ export function TalentCard({ card, onRequestProfile }: Props) {
         <p className="mt-0.5 text-xs font-medium uppercase tracking-wide text-teal">{card.roleCategory}</p>
       </div>
 
-      {/* Body */}
-      <div className="flex flex-1 flex-col gap-5 px-6 py-6">
-        <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 text-sm">
+      <div className="flex flex-1 flex-col gap-4 px-6 py-6">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
           <div className="flex items-center gap-2 text-body">
             <MapPin className="h-4 w-4 text-teal shrink-0" />
             <span>{card.locations.join(", ")}</span>
@@ -32,77 +32,12 @@ export function TalentCard({ card, onRequestProfile }: Props) {
             <Briefcase className="h-4 w-4 text-teal shrink-0" />
             <span>{card.experienceYears}</span>
           </div>
-          {card.noticePeriod && (
-            <div className="flex items-center gap-2 text-body">
-              <Clock className="h-4 w-4 text-teal shrink-0" />
-              <span>{card.noticePeriod} notice</span>
-            </div>
-          )}
-          {card.expectedSalaryRange && (
-            <div className="flex items-center gap-2 text-body">
-              <Wallet className="h-4 w-4 text-teal shrink-0" />
-              <span>Expected: {card.expectedSalaryRange}</span>
-            </div>
-          )}
-          {card.workMode && (
-            <div className="flex items-center gap-2 text-body">
-              <Building2 className="h-4 w-4 text-teal shrink-0" />
-              <span>{card.workMode}</span>
-            </div>
-          )}
-          {card.availability && (
-            <div className="flex items-center gap-2 text-body">
-              <CalendarClock className="h-4 w-4 text-teal shrink-0" />
-              <span>{card.availability}</span>
-            </div>
-          )}
         </div>
 
-        <div className="h-px bg-border" />
-
-        <div className="space-y-4 text-sm">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Sector Experience</p>
-            <p className="mt-1 text-body leading-relaxed">{card.sectorExperience}</p>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Current Responsibility</p>
-            <ul className="mt-1.5 space-y-1.5">
-              {card.currentResponsibility.map((point, i) => (
-                <li key={i} className="flex gap-2 text-body leading-relaxed">
-                  {point.isAchievement ? (
-                    <Star className="mt-0.5 h-3.5 w-3.5 shrink-0 fill-amber-cta text-amber-cta" />
-                  ) : (
-                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
-                  )}
-                  <span>{point.text}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-navy transition-colors group-hover:text-teal">
+          View Full Profile
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </div>
-
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Open To</p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {card.openTo.map((o) => (
-              <span key={o} className="rounded-full border border-border bg-background px-2.5 py-1 text-xs font-medium text-body">
-                {o}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-auto px-6 pb-6">
-        <Button
-          className="w-full bg-navy text-navy-foreground transition-colors hover:bg-navy/90 group-hover:bg-teal"
-          onClick={() => onRequestProfile(card)}
-        >
-          Express Interest
-          <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-        </Button>
       </div>
     </Card>
   );
