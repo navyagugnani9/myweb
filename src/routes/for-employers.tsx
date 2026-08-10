@@ -95,32 +95,33 @@ function ForEmployersPage() {
   return (
     <>
       <section className="bg-hero-navy text-white section-y">
-        <div className="container-prose max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Employers</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Hire Talent for Your Education Organisation</h1>
-          <p className="mt-5 text-lg text-white/80">Submit your requirement and our team will assess it before beginning the search.</p>
-          <Button className="mt-8 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg" onClick={() => document.getElementById('requirement-form')?.scrollIntoView({ behavior: 'smooth' })}>
-            Submit a Hiring Requirement
-          </Button>
-        </div>
-      </section>
-
-      {/* PREFER TO TALK FIRST */}
-      <section className="py-10 bg-surface border-b border-border">
-        <div className="container-prose flex flex-col items-center gap-2 text-center">
-          <h2 className="text-lg font-semibold text-foreground">Prefer to discuss the requirement first?</h2>
-          <p className="text-sm text-body">Speak with AcadHire before submitting a detailed mandate.</p>
-          <Button asChild variant="outline" className="mt-2">
-            <Link to="/contact">Schedule a Hiring Discussion</Link>
-          </Button>
+        <div className="container-prose grid gap-10 lg:grid-cols-[1.1fr_1fr] items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Employers</p>
+            <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Hire Talent for Your Education Organisation</h1>
+            <p className="mt-5 max-w-[600px] text-lg text-white/80">Submit your requirement and our team will assess it before beginning the search.</p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Button className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg" onClick={() => document.getElementById('requirement-form')?.scrollIntoView({ behavior: 'smooth' })}>
+                Submit a Hiring Requirement
+              </Button>
+              <Button asChild variant="outline" size="lg" className="border-white hover:bg-white hover:text-navy text-slate-800">
+                <Link to="/contact" hash="general-enquiry">Speak With Us</Link>
+              </Button>
+            </div>
+          </div>
+          <img
+            src="/images/candidate-sourcing.png"
+            alt="Sourcing and shortlisting candidates for a hiring requirement"
+            className="hidden lg:block w-full rounded-2xl shadow-elegant object-cover aspect-[4/3]"
+          />
         </div>
       </section>
 
       {/* HOW AN ENGAGEMENT WORKS */}
       <section className="section-y">
         <div className="container-prose">
-          <SectionHeading eyebrow="How it works" title="How an Engagement Works" />
-          <div className="mt-16 grid gap-6 md:grid-cols-3 lg:grid-cols-5">
+          <SectionHeading align="left" eyebrow="How it works" title="How an Engagement Works" />
+          <div className="mt-10 grid gap-6 md:grid-cols-3 lg:grid-cols-5">
             {ENGAGEMENT_STEPS.map((s, i) => (
               <Card key={s.title} className="p-6">
                 <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">{i + 1}</div>
@@ -134,7 +135,7 @@ function ForEmployersPage() {
       </section>
 
       <section id="requirement-form" className="section-y bg-surface scroll-mt-20">
-        <div className="container-prose max-w-3xl">
+        <div className="container-prose">
           <SectionHeading eyebrow="Submit a requirement" title="Tell Us About the Role" subtitle="We'll respond within 24 hours with next steps. The form takes under a minute." />
 
           <Card className="mt-10 p-6 md:p-10">
@@ -216,10 +217,10 @@ function ForEmployersPage() {
         </div>
       </section>
 
-      <section className="section-y bg-surface">
+      <section className="section-y">
         <div className="container-prose">
-          <SectionHeading eyebrow="Why AcadHire" title="Why Employers Work With Us" />
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <SectionHeading align="left" eyebrow="Why AcadHire" title="Why Employers Work With Us" />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: ClipboardList, title: "Sector specialists", desc: "Education only. No generalist guesswork." },
               { icon: Search, title: "Active search", desc: "Database sourcing, market mapping and direct outreach beyond job portals." },

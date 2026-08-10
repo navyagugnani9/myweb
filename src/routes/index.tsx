@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  GraduationCap, Building2, Monitor, Briefcase, Users, Target, Award,
-  CheckCircle2, MapPin, Lock, Clock, BookOpen, LineChart, ArrowRight, Star,
-  FileSearch, UserCheck, ClipboardList, Calendar, Handshake, Search,
+  GraduationCap, Building2, Monitor, Briefcase, Target, CheckCircle2,
+  MapPin, BookOpen, LineChart, Users, Award, Star, Search, Handshake, ArrowRight,
 } from "lucide-react";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
@@ -28,12 +27,25 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const ORGANISATIONS = [
+  { icon: Building2, title: "Schools", desc: "K-12 schools, international schools, preschools, boarding schools and school groups." },
+  { icon: Monitor, title: "EdTech and Learning Companies", desc: "Online learning platforms, test preparation companies, education technology businesses and digital learning organisations." },
+  { icon: GraduationCap, title: "Education Businesses", desc: "Training organisations, education consultancies, coaching institutes and skill development organisations." },
+];
+
+const ROLE_CATEGORIES = [
+  { icon: Award, title: "Leadership", examples: "Principals, Heads of School, Academic Heads, Business Heads." },
+  { icon: BookOpen, title: "Academic & Teaching", examples: "Teachers, academic coordinators, curriculum specialists." },
+  { icon: LineChart, title: "Admissions & Growth", examples: "Admissions, enrollment, sales, partnerships." },
+  { icon: Users, title: "Operations & Functions", examples: "Academic operations, HR, administration, marketing." },
+  { icon: Target, title: "Specialist Roles", examples: "Counsellors, special educators, assessment professionals." },
+];
+
 const WHY_ACADHIRE = [
-  { icon: Target, title: "Education Sector Search Specialists", desc: "School leadership, academic, admissions, operations and education business roles." },
-  { icon: CheckCircle2, title: "Shortlists, Not CV Dumps", desc: "Every profile is reviewed against the actual role requirements before being presented to the employer." },
-  { icon: Search, title: "Active Search Beyond Job Portals", desc: "Database sourcing, market mapping, LinkedIn research, targeted outreach and direct candidate search." },
-  { icon: UserCheck, title: "Candidate Alignment Before Submission", desc: "Relevant experience, compensation expectations, location, interest and joining considerations are reviewed before profiles reach the employer." },
-  { icon: Handshake, title: "Search Support Through Joining", desc: "Interview coordination, candidate communication, feedback, offer discussions and joining follow up are supported by AcadHire." },
+  { icon: Target, title: "Sector Specialisation", desc: "AcadHire works specifically within education, allowing searches to be interpreted in the context of schools, learning companies and education roles." },
+  { icon: Search, title: "Targeted Candidate Search", desc: "We combine databases, market research, LinkedIn research, targeted outreach and direct candidate search rather than relying only on incoming applications." },
+  { icon: CheckCircle2, title: "Assessed Shortlists", desc: "Candidates are reviewed against the specific requirement, including relevant experience, compensation expectations, location, availability and role alignment before being presented." },
+  { icon: Handshake, title: "Support Through Appointment", desc: "AcadHire supports interview coordination, candidate communication, feedback, offer discussions and joining." },
 ];
 
 const TESTIMONIALS = [
@@ -48,38 +60,43 @@ function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-hero-navy text-white">
-        <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden />
-        <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-teal/20 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-amber-cta/10 blur-3xl" aria-hidden />
-        <div className="container-prose relative py-16 md:py-24 max-w-4xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/90">
-            <GraduationCap className="h-3.5 w-3.5" /> Specialist Education-Sector Recruitment
-          </span>
-          <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-            Specialist Recruitment for the Education Sector
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
-            From teachers and counsellors to Principals, Academic Heads and business leaders, AcadHire helps schools and education organisations identify, assess and hire talent across India.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
-              <Link to="/for-employers">Hire Talent</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
-              <Link to="/talent-cards">Explore Talent</Link>
-            </Button>
+      <section className="relative overflow-hidden text-white min-h-[560px] flex items-center">
+        <img
+          src="/images/homepage-hero.png"
+          alt="Reviewing and shortlisting candidate profiles for education roles"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/30" aria-hidden />
+        <div className="container-prose relative py-12 md:py-20">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/90">
+              <GraduationCap className="h-3.5 w-3.5" /> Specialist Education-Sector Recruitment
+            </span>
+            <h1 className="mt-6 text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
+              Specialist Recruitment for the Education Sector
+            </h1>
+            <p className="mt-6 text-lg md:text-xl text-white/80">
+              From teachers and counsellors to Principals, Academic Heads and business leaders, AcadHire helps schools and education organisations identify, assess and hire talent across India.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Button asChild size="lg" className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+                <Link to="/for-employers">Hire Talent</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
+                <Link to="/talent-cards">Explore Talent</Link>
+              </Button>
+            </div>
+            <p className="mt-10 text-xs uppercase tracking-[0.2em] text-white/60">
+              Trusted by Schools · EdTech Companies · Education Groups
+            </p>
           </div>
-          <p className="mt-10 text-xs uppercase tracking-[0.2em] text-white/60">
-            Trusted by Schools · EdTech Companies · Education Groups
-          </p>
         </div>
       </section>
 
       {/* CREDIBILITY STATS */}
       <section className="py-10 md:py-12 bg-navy text-white">
         <div className="container-prose">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {CREDIBILITY_STATS.map((s) => (
               <div key={s.label} className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-white">{s.value}</p>
@@ -90,20 +107,12 @@ function Home() {
         </div>
       </section>
 
-      {/* WHAT ACADHIRE RECRUITS FOR */}
+      {/* WHO WE WORK WITH */}
       <section className="section-y">
         <div className="container-prose">
-          <SectionHeading
-            eyebrow="What we recruit for"
-            title="Built Exclusively for the Education Sector"
-            subtitle="Whether you're a school, edtech startup, training provider, education consultant or nonprofit, we understand the unique talent needs of the education sector and help you find the right people to drive impact."
-          />
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
-            {[
-              { icon: Building2, title: "Schools", desc: "K-12, international schools, preschools, boarding schools, coaching institutes, and tutoring centers." },
-              { icon: Monitor, title: "EdTech Companies", desc: "Online learning platforms, ed-tech startups, test prep platforms, and digital education products." },
-              { icon: GraduationCap, title: "Education Companies", desc: "Training institutes, skill development firms, higher education groups, and learning academies." },
-            ].map((c) => (
+          <SectionHeading align="left" eyebrow="Who we work with" title="Built Exclusively for Education Hiring" />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {ORGANISATIONS.map((c) => (
               <Card key={c.title} className="p-7 border-t-4 border-t-navy hover:shadow-elegant transition-shadow">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-navy/5 text-navy">
                   <c.icon className="h-6 w-6" />
@@ -113,40 +122,37 @@ function Home() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: BookOpen, title: "Academic Hiring", roles: ["Teachers", "Tutors", "Faculty", "Trainers", "Curriculum Specialists"] },
-              { icon: Award, title: "Leadership Hiring", roles: ["Principals", "Academic Heads", "Business Heads", "Center Heads"] },
-              { icon: LineChart, title: "Sales & Admissions", roles: ["Admissions Counsellors", "Inside Sales", "Enrollment Managers"] },
-              { icon: Users, title: "Operations & Success", roles: ["Academic Operations", "Center Operations", "Program Management"] },
-            ].map((c) => (
+      {/* WHAT WE HIRE FOR */}
+      <section className="bg-surface section-y">
+        <div className="container-prose">
+          <SectionHeading align="left" eyebrow="What we hire for" title="Roles Across the Education Organisation" />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {ROLE_CATEGORIES.map((c) => (
               <Card key={c.title} className="p-6 hover:shadow-elegant transition-shadow">
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-teal/10 text-teal">
                   <c.icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 font-bold text-foreground">{c.title}</h3>
-                <ul className="mt-3 space-y-1.5 text-sm text-body">
-                  {c.roles.map((r) => (
-                    <li key={r} className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-cta" /> {r}
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-2 text-sm text-body leading-relaxed">{c.examples}</p>
               </Card>
             ))}
+          </div>
+          <div className="mt-8">
+            <Button asChild variant="outline">
+              <Link to="/services" hash="what-we-recruit-for">Explore Recruitment Services <ArrowRight className="h-4 w-4" /></Link>
+            </Button>
           </div>
         </div>
       </section>
 
       {/* WHY ACADHIRE */}
-      <section className="bg-surface section-y">
+      <section className="section-y">
         <div className="container-prose">
-          <SectionHeading
-            eyebrow="Why AcadHire"
-            title="Why Education Organizations Choose AcadHire"
-          />
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading align="left" eyebrow="Why AcadHire" title="Why Education Organisations Choose AcadHire" />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {WHY_ACADHIRE.map((b) => (
               <div key={b.title} className="p-6 rounded-xl bg-background border border-border hover:border-teal/40 transition">
                 <div className="flex items-center gap-3">
@@ -162,44 +168,19 @@ function Home() {
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className="section-y">
-        <div className="container-prose">
-          <SectionHeading eyebrow="How we work" title="How the Search Process Works" />
-          <div className="mt-16 grid gap-6 md:grid-cols-3 lg:grid-cols-6">
-            {[
-              { icon: ClipboardList, title: "Requirement Briefing", desc: "Understand the role, culture, and expectations." },
-              { icon: Search, title: "Talent Sourcing", desc: "Search our database and active headhunting." },
-              { icon: FileSearch, title: "Screening & Assessment", desc: "Structured review against the role requirement." },
-              { icon: UserCheck, title: "Shortlist Delivery", desc: "Curated profiles with screening notes." },
-              { icon: Calendar, title: "Interview Coordination", desc: "We manage scheduling and communication." },
-              { icon: Handshake, title: "Offer & Onboarding", desc: "Support through offer and joining." },
-            ].map((s, i) => (
-              <div key={s.title} className="relative p-5 rounded-xl bg-surface border border-border">
-                <div className="absolute -top-3 left-5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">
-                  {i + 1}
-                </div>
-                <s.icon className="mt-2 h-6 w-6 text-teal" />
-                <h4 className="mt-3 font-semibold text-foreground text-sm">{s.title}</h4>
-                <p className="mt-1 text-xs text-body leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* MINI CASE STUDY */}
+      {/* SEARCH CASE STUDY */}
       <CaseStudySection />
 
       {/* TALENT AVAILABLE NOW */}
       <section className="section-y">
         <div className="container-prose">
           <SectionHeading
+            align="left"
             eyebrow="Talent available now"
             title="Talent Available Now"
             subtitle="Explore selected education professionals already screened by AcadHire."
           />
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {featuredTalent.map((card) => (
               <Card key={card.candidateId} className="p-6 hover:shadow-elegant transition-shadow">
                 <span className="inline-flex items-center rounded-full border border-navy/20 bg-navy/5 px-2.5 py-1 text-xs font-semibold text-navy">
@@ -226,7 +207,7 @@ function Home() {
       <section className="bg-surface section-y">
         <div className="container-prose">
           <SectionHeading eyebrow="Testimonials" title="What Our Clients Say" />
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
               <Card key={t.org} className="p-7 bg-background">
                 <div className="flex gap-1 text-amber-cta">
@@ -245,23 +226,25 @@ function Home() {
 
       {/* EMPLOYER CTA — primary emphasis */}
       <section className="bg-hero-navy text-white">
-        <div className="container-prose py-16 md:py-24 text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">Hiring for an education role?</h2>
-          <p className="mt-4 text-lg text-white/80">Tell us what you are looking for and our team will assess the requirement before beginning the search.</p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
-              <Link to="/for-employers">Submit a Hiring Requirement</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
-              <Link to="/contact">Speak to AcadHire</Link>
-            </Button>
+        <div className="container-prose py-12 md:py-20">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">Hiring for an education role?</h2>
+            <p className="mt-4 text-lg text-white/80">Tell us what you are looking for and our team will assess the requirement before beginning the search.</p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Button asChild size="lg" className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+                <Link to="/for-employers">Submit a Hiring Requirement</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
+                <Link to="/contact">Speak to AcadHire</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CANDIDATE CTA — secondary emphasis */}
       <section className="py-10 border-b border-border">
-        <div className="container-prose flex flex-col items-center gap-3 text-center">
+        <div className="container-prose flex flex-col items-start gap-3">
           <h3 className="text-lg font-semibold text-foreground">Looking for your next role in education?</h3>
           <Button asChild variant="outline">
             <Link to="/openings">Explore Opportunities</Link>
@@ -271,9 +254,9 @@ function Home() {
 
       {/* FAQ */}
       <section className="section-y">
-        <div className="container-prose max-w-3xl">
+        <div className="container-prose">
           <SectionHeading eyebrow="FAQ" title="Frequently Asked Questions" />
-          <Accordion type="single" collapsible className="mt-10">
+          <Accordion type="single" collapsible className="mt-10 max-w-3xl">
             {[
               { q: "What types of organizations do you work with?", a: "We partner with K-12 schools (CBSE, ICSE, IB, state boards), international and boarding schools, preschools, coaching and tutoring institutes, EdTech companies (online learning, test prep, K-12, higher-ed platforms), skill development firms, training institutes, and higher education groups across India." },
               { q: "How long does it take to receive shortlisted candidates?", a: "Initial shortlisted profiles are typically presented within 5 to 7 business days for standard mandates, subject to the complexity and seniority of the requirement." },

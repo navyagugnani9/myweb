@@ -108,20 +108,22 @@ function ForCandidatesPage() {
   return (
     <>
       <section className="bg-hero-navy text-white section-y">
-        <div className="container-prose max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Candidates</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Find Your Next Role in Education</h1>
-          <p className="mt-5 text-lg text-white/80">Register with AcadHire and get matched to leading schools, EdTech platforms, and education companies.</p>
-          <Button className="mt-8 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg" onClick={() => document.getElementById('candidate-form')?.scrollIntoView({ behavior: 'smooth' })}>
-            Register Now
-          </Button>
+        <div className="container-prose">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Candidates</p>
+            <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Find Your Next Role in Education</h1>
+            <p className="mt-5 text-lg text-white/80">Register with AcadHire and get matched to leading schools, EdTech platforms, and education companies.</p>
+            <Button className="mt-8 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg" onClick={() => document.getElementById('candidate-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              Register Now
+            </Button>
+          </div>
         </div>
       </section>
 
       <section className="section-y">
         <div className="container-prose">
-          <SectionHeading eyebrow="What you get" title="What We Offer Candidates" />
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
+          <SectionHeading align="left" eyebrow="What you get" title="What We Offer Candidates" />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               { icon: Sparkles, title: "Curated Opportunities", desc: "Roles aligned to your experience, expertise, and location, not a generic job blast." },
               { icon: BadgeCheck, title: "No Cost to Candidates", desc: "AcadHire never charges candidates. Free registration, free placement, always." },
@@ -137,14 +139,15 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="section-y bg-surface">
+      <section className="section-y">
         <div className="container-prose">
           <SectionHeading
+            align="left"
             eyebrow="Why join"
             title="Why Register With AcadHire"
             subtitle="Joining the AcadHire talent network allows your profile to be considered for suitable education opportunities, including selected searches that may not be advertised publicly."
           />
-          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: Search, title: "Current vacancies", desc: "Roles actively being hired for right now." },
               { icon: Lock, title: "Confidential searches", desc: "Leadership and senior mandates not advertised publicly." },
@@ -165,7 +168,7 @@ function ForCandidatesPage() {
       </section>
 
       <section id="candidate-form" className="section-y bg-surface scroll-mt-20">
-        <div className="container-prose max-w-3xl">
+        <div className="container-prose">
           <SectionHeading eyebrow="Register" title="Register Your Profile" subtitle="Share your details and resume. Our team will reach out only when there's a relevant match." />
 
           <Card className="mt-10 p-6 md:p-10">
@@ -305,8 +308,8 @@ function ForCandidatesPage() {
 
       <section className="section-y">
         <div className="container-prose">
-          <SectionHeading eyebrow="Next steps" title="What Happens After You Register" />
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
+          <SectionHeading align="left" eyebrow="Next steps" title="What Happens After You Register" />
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               { step: 1, title: "Profile review", desc: "Our team reviews your profile against current and upcoming mandates." },
               { step: 2, title: "Conversation", desc: "If there's a fit, a consultant reaches out for a quick screening call." },

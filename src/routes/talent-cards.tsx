@@ -4,6 +4,7 @@ import { ShieldCheck, Search, MessageSquareText, Handshake } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TalentCard } from "@/components/TalentCard";
+import { TalentCardDetailDialog } from "@/components/TalentCardDetailDialog";
 import { RequestProfileDialog } from "@/components/RequestProfileDialog";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -41,6 +42,8 @@ function TalentCardsPage() {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selectedCard, setSelectedCard] = useState<TalentCardData | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [viewCard, setViewCard] = useState<TalentCardData | null>(null);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
 
   const [roleCategory, setRoleCategory] = useState(ALL);
   const [location, setLocation] = useState(ALL);
@@ -85,8 +88,14 @@ function TalentCardsPage() {
   };
 
   const handleRequestProfile = (card: TalentCardData) => {
+    setViewDialogOpen(false);
     setSelectedCard(card);
     setDialogOpen(true);
+  };
+
+  const handleViewCard = (card: TalentCardData) => {
+    setViewCard(card);
+    setViewDialogOpen(true);
   };
 
   return (
@@ -95,41 +104,49 @@ function TalentCardsPage() {
       <section className="relative overflow-hidden bg-hero-navy text-white">
         <div className="absolute inset-0 grid-pattern opacity-60" aria-hidden />
         <div className="absolute -top-20 -right-20 h-80 w-80 rounded-full bg-teal/20 blur-3xl" aria-hidden />
-        <div className="container-prose relative section-y max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/70">AcadHire Talent Cards</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-[1.1]">
-            Explore Screened Education Talent
-          </h1>
-          <p className="mt-6 text-lg text-white/80">
-            Browse selected professionals across academic, leadership, admissions, operations and education business functions. Candidate identities remain confidential until employer interest and candidate consent are established.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              size="lg"
-              className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground"
-              onClick={() => document.getElementById("talent-cards-listing")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Explore Talent Cards
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
-              <Link to="/for-employers">Share a Hiring Requirement</Link>
-            </Button>
+        <div className="container-prose relative section-y grid gap-10 lg:grid-cols-[1.15fr_1fr] items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-white/70">AcadHire Talent Cards</p>
+            <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-[1.1]">
+              Explore Screened Education Talent
+            </h1>
+            <p className="mt-6 max-w-[600px] text-lg text-white/80">
+              Browse selected professionals across academic, leadership, admissions, operations and education business functions. Candidate identities remain confidential until employer interest and candidate consent are established.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Button
+                size="lg"
+                className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground"
+                onClick={() => document.getElementById("talent-cards-listing")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Explore Talent Cards
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
+                <Link to="/for-employers">Share a Hiring Requirement</Link>
+              </Button>
+            </div>
+            <p className="mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/60">
+              <ShieldCheck className="h-3.5 w-3.5" /> Candidate identities remain confidential until verified interest and consent are confirmed
+            </p>
           </div>
-          <p className="mt-6 flex items-center justify-center gap-2 text-xs uppercase tracking-[0.15em] text-white/60">
-            <ShieldCheck className="h-3.5 w-3.5" /> Candidate identities remain confidential until verified interest and consent are confirmed
-          </p>
+          <img
+            src="/images/talent-network.png"
+            alt="Network of screened education talent profiles"
+            className="hidden lg:block w-full rounded-2xl shadow-elegant object-cover aspect-square"
+          />
         </div>
       </section>
 
       {/* INTRO */}
-      <section className="pt-16 pb-10 md:pt-24 md:pb-14">
+      <section className="pt-12 pb-8 md:pt-20 md:pb-12">
         <div className="container-prose">
           <SectionHeading
+            align="left"
             eyebrow="Why Talent Cards"
             title="Meet Talent Before You Open a Vacancy"
             subtitle="Some of the strongest hires begin before a position is formally advertised. AcadHire Talent Cards allow schools, EdTech companies, universities, training institutes and education consultancies to discover selected professionals who may be suitable for current or upcoming requirements. Every featured candidate is reviewed by AcadHire before being added to the platform."
           />
-          <div className="mt-16 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {PROCESS_STEPS.map((s, i) => (
               <div key={s.title} className="relative rounded-xl border border-border bg-surface p-6">
                 <div className="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">
@@ -145,7 +162,7 @@ function TalentCardsPage() {
       </section>
 
       {/* FULL LISTING */}
-      <section id="talent-cards-listing" className="pt-10 pb-16 md:pt-14 md:pb-24 scroll-mt-20">
+      <section id="talent-cards-listing" className="pt-8 pb-12 md:pt-12 md:pb-20 scroll-mt-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Browse all" title="Talent Cards" />
 
@@ -185,11 +202,11 @@ function TalentCardsPage() {
           </div>
 
           {filteredCards.length === 0 ? (
-            <p className="mt-16 text-center text-body">No talent cards match these filters. Try adjusting your selection.</p>
+            <p className="mt-10 text-center text-body">No talent cards match these filters. Try adjusting your selection.</p>
           ) : (
             <div className="mt-10 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {visibleCards.map((card) => (
-                <TalentCard key={card.candidateId} card={card} onRequestProfile={handleRequestProfile} />
+                <TalentCard key={card.candidateId} card={card} onView={handleViewCard} />
               ))}
             </div>
           )}
@@ -205,17 +222,25 @@ function TalentCardsPage() {
 
       {/* DIDN'T FIND THE RIGHT PROFILE */}
       <section className="bg-hero-navy text-white">
-        <div className="container-prose pt-16 pb-12 md:pt-24 md:pb-16 text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Didn't Find the Right Profile?</h2>
-          <p className="mt-3 text-white/80">
-            Tell us what you are hiring for, and AcadHire will conduct a targeted search across its education talent network.
-          </p>
-          <Button asChild size="lg" className="mt-6 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
-            <Link to="/for-employers">Submit a Hiring Requirement</Link>
-          </Button>
+        <div className="container-prose pt-12 pb-10 md:pt-20 md:pb-14">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Didn't Find the Right Profile?</h2>
+            <p className="mt-3 text-white/80">
+              Tell us what you are hiring for, and AcadHire will conduct a targeted search across its education talent network.
+            </p>
+            <Button asChild size="lg" className="mt-6 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+              <Link to="/for-employers">Submit a Hiring Requirement</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
+      <TalentCardDetailDialog
+        card={viewCard}
+        open={viewDialogOpen}
+        onOpenChange={setViewDialogOpen}
+        onRequestProfile={handleRequestProfile}
+      />
       <RequestProfileDialog card={selectedCard} open={dialogOpen} onOpenChange={setDialogOpen} />
     </>
   );

@@ -77,14 +77,16 @@ function OpeningsPage() {
       ))}
 
       <section className="bg-hero-navy text-white section-y">
-        <div className="container-prose max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/70">Openings</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Current Openings</h1>
-          <p className="mt-5 text-lg text-white/80">Browse active roles across schools, education organisations, and EdTech companies.</p>
+        <div className="container-prose">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/70">Openings</p>
+            <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Current Openings</h1>
+            <p className="mt-5 text-lg text-white/80">Browse active roles across schools, education organisations, and EdTech companies.</p>
+          </div>
         </div>
       </section>
 
-      <section className="pt-16 pb-10 md:pt-24 md:pb-14">
+      <section className="pt-12 pb-8 md:pt-20 md:pb-12">
         <div className="container-prose">
           <SectionHeading
             align="left"

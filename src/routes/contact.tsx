@@ -63,10 +63,12 @@ function ContactPage() {
   return (
     <>
       <section className="bg-hero-navy text-white section-y">
-        <div className="container-prose max-w-3xl text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/70">Contact</p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Get in Touch</h1>
-          <p className="mt-5 text-lg text-white/80">Whether you're hiring or job-seeking, we'd love to hear from you.</p>
+        <div className="container-prose">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/70">Contact</p>
+            <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Get in Touch</h1>
+            <p className="mt-5 text-lg text-white/80">Whether you're hiring or job-seeking, we'd love to hear from you.</p>
+          </div>
         </div>
       </section>
 
