@@ -161,7 +161,7 @@
 @layer components {
   .container-prose {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1180px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.25rem;
@@ -174,23 +174,18 @@
       padding-right: 2rem;
     }
   }
-  @media (min-width: 1024px) {
-    .container-prose {
-      padding-left: 2.5rem;
-      padding-right: 2.5rem;
-    }
-  }
 
-  /* Consistent vertical rhythm for major page sections: ~64px on mobile,
-     ~96px on desktop (within the 96–120px range used site-wide). */
+  /* Consistent vertical rhythm for major page sections: ~48px on mobile,
+     ~72px on desktop — a compact, editorial density (some sections may
+     use up to 80px, but this is the shared default). */
   .section-y {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
   @media (min-width: 768px) {
     .section-y {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
+      padding-top: 4.5rem;
+      padding-bottom: 4.5rem;
     }
   }
 }
