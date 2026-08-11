@@ -34,7 +34,7 @@ function AboutPage() {
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/70">About AcadHire</p>
             <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white leading-tight">
-              Recruitment built around the realities of education.
+              Recruitment built around the realities of education
             </h1>
             <p className="mt-6 max-w-[600px] text-lg text-white/80">
               AcadHire was created to bring greater sector understanding, rigour and relevance to education recruitment. We work with schools and education organisations to identify candidates whose experience, expectations and capabilities genuinely align with the requirement.
@@ -99,14 +99,16 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-hero-navy text-white">
-        <div className="container-prose py-12 md:py-20">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Ready to build your team?</h2>
-            <p className="mt-4 text-white/80">Tell us what you're hiring for and a member of the AcadHire team will get in touch.</p>
-            <Button asChild className="mt-8 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg">
-              <Link to="/contact">Get in Touch</Link>
-            </Button>
+      <section className="pt-0 pb-10 md:pb-14">
+        <div className="container-prose">
+          <div className="rounded-2xl bg-hero-navy text-white p-8 md:p-14">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">Ready to build your team?</h2>
+              <p className="mt-4 text-white/80">Tell us what you're hiring for and a member of the AcadHire team will get in touch.</p>
+              <Button asChild className="mt-8 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg">
+                <Link to="/contact">Get in Touch</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

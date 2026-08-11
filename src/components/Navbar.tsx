@@ -40,7 +40,7 @@ export function Navbar() {
           <LogoWordmark className="text-2xl" variant="light" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-6">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -59,7 +59,7 @@ export function Navbar() {
             <Link to="/for-employers">Hire Talent</Link>
           </Button>
           <Button asChild variant="outline" className="border-navy text-navy hover:bg-navy hover:text-navy-foreground">
-            <Link to="/for-candidates">Explore Opportunities</Link>
+            <Link to="/contact">Contact Us</Link>
           </Button>
         </div>
 
@@ -92,7 +92,7 @@ export function Navbar() {
                 <Link to="/for-employers" onClick={() => setOpen(false)}>Hire Talent</Link>
               </Button>
               <Button asChild variant="outline" className="border-navy text-navy">
-                <Link to="/for-candidates" onClick={() => setOpen(false)}>Explore Opportunities</Link>
+                <Link to="/contact" onClick={() => setOpen(false)}>Contact Us</Link>
               </Button>
             </div>
           </nav>

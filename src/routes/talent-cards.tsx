@@ -129,16 +129,23 @@ function TalentCardsPage() {
               <ShieldCheck className="h-3.5 w-3.5" /> Candidate identities remain confidential until verified interest and consent are confirmed
             </p>
           </div>
-          <img
-            src="/images/talent-network.png"
-            alt="Network of screened education talent profiles"
-            className="hidden lg:block w-full rounded-2xl shadow-elegant object-cover aspect-square"
-          />
+          <div className="relative hidden lg:block">
+            <div className="absolute inset-0 rotate-3 rounded-2xl bg-teal/25" aria-hidden />
+            <img
+              src="/images/talent-network.png"
+              alt="Network of screened education talent profiles"
+              className="relative w-full -rotate-2 rounded-2xl shadow-elegant object-cover aspect-square ring-1 ring-white/10"
+            />
+            <div className="absolute -bottom-5 -left-5 flex items-center gap-2 rounded-xl bg-white px-4 py-3 shadow-elegant">
+              <ShieldCheck className="h-5 w-5 text-teal" />
+              <span className="text-xs font-semibold text-navy">Verified Candidate Profiles</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* INTRO */}
-      <section className="pt-12 pb-8 md:pt-20 md:pb-12">
+      <section className="pt-10 pb-6 md:pt-14 md:pb-10">
         <div className="container-prose">
           <SectionHeading
             align="left"
@@ -162,12 +169,12 @@ function TalentCardsPage() {
       </section>
 
       {/* FULL LISTING */}
-      <section id="talent-cards-listing" className="pt-8 pb-12 md:pt-12 md:pb-20 scroll-mt-20">
+      <section id="talent-cards-listing" className="bg-surface pt-6 pb-10 md:pt-10 md:pb-14 scroll-mt-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Browse all" title="Talent Cards" />
 
           {/* FILTERS */}
-          <div className="mt-10 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-surface p-4">
+          <div className="mt-10 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-background p-4">
             <Select value={roleCategory} onValueChange={(v) => { setRoleCategory(v); setVisibleCount(PAGE_SIZE); }}>
               <SelectTrigger className="w-auto min-w-[160px]"><SelectValue placeholder="Function" /></SelectTrigger>
               <SelectContent>
@@ -221,16 +228,18 @@ function TalentCardsPage() {
       </section>
 
       {/* DIDN'T FIND THE RIGHT PROFILE */}
-      <section className="bg-hero-navy text-white">
-        <div className="container-prose pt-12 pb-10 md:pt-20 md:pb-14">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">Didn't Find the Right Profile?</h2>
-            <p className="mt-3 text-white/80">
-              Tell us what you are hiring for, and AcadHire will conduct a targeted search across its education talent network.
-            </p>
-            <Button asChild size="lg" className="mt-6 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
-              <Link to="/for-employers">Submit a Hiring Requirement</Link>
-            </Button>
+      <section className="section-y">
+        <div className="container-prose">
+          <div className="rounded-2xl bg-hero-navy text-white p-8 md:p-12">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl md:text-3xl font-bold text-white">Didn't Find the Right Profile?</h2>
+              <p className="mt-3 text-white/80">
+                Tell us what you are hiring for, and AcadHire will conduct a targeted search across its education talent network.
+              </p>
+              <Button asChild size="lg" className="mt-6 bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+                <Link to="/for-employers">Submit a Hiring Requirement</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

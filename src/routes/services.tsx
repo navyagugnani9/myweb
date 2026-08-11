@@ -136,11 +136,14 @@ function ServicesPage() {
               <Link to="/for-employers">Submit a Hiring Requirement</Link>
             </Button>
           </div>
-          <img
-            src="/images/services-hero-laptop.png"
-            alt="AcadHire candidate shortlist and screening workflow"
-            className="w-full rounded-2xl shadow-elegant object-cover aspect-[4/3]"
-          />
+          <div className="relative">
+            <div className="absolute -bottom-5 -left-5 h-full w-full rounded-2xl border-2 border-teal/40" aria-hidden />
+            <img
+              src="/images/services-hero-laptop.png"
+              alt="AcadHire candidate shortlist and screening workflow"
+              className="relative w-full rounded-2xl shadow-elegant object-cover aspect-[4/3]"
+            />
+          </div>
         </div>
       </section>
 
@@ -208,7 +211,7 @@ function ServicesPage() {
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy/5 text-navy">
                   <s.icon className="h-5 w-5" />
                 </span>
-                <span className="text-xs font-medium text-foreground leading-snug">{s.label}</span>
+                <span className="text-sm font-medium text-foreground leading-snug">{s.label}</span>
               </div>
             ))}
           </div>

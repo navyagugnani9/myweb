@@ -8,7 +8,9 @@ export interface CredibilityStat {
 // genuinely substantiated — do not add invented figures.
 export const CREDIBILITY_STATS: CredibilityStat[] = [
   { value: "10+", label: "Clients" },
-  { value: "350+", label: "Education organisations mapped" },
-  { value: "Pan India", label: "Talent search" },
+  { value: "500+", label: "Education organisations mapped" },
+  { value: "Pan India", label: "Search capability" },
+  { value: "Academic to Leadership", label: "Hiring coverage" },
   { value: "End to End", label: "Recruitment support" },
+  { value: "Education Sector", label: "Specialist recruitment" },
 ];

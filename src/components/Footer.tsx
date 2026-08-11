@@ -1,6 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, MessageCircle } from "lucide-react";
 import { LogoMark, LogoWordmark } from "@/components/Logo";
+
+const WHATSAPP_URL = `https://wa.me/918950504713?text=${encodeURIComponent(
+  "Hi AcadHire! I have an inquiry regarding your recruitment services and would like to discuss my hiring requirements. Could you please share more information about how AcadHire can support us?",
+)}`;
 
 const SERVICES = [
   { to: "/services", label: "Leadership and Senior Search" },
@@ -22,7 +26,7 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="bg-navy text-navy-foreground/90">
+    <footer className="bg-navy text-navy-foreground/90 border-t border-white/10">
       <div className="container-prose py-14 grid gap-10 md:grid-cols-4">
         <div>
           <Link to="/" className="inline-flex items-center gap-2.5 rounded-lg bg-white px-3 py-2">
@@ -30,7 +34,7 @@ export function Footer() {
             <LogoWordmark className="text-2xl" variant="light" />
           </Link>
           <p className="mt-5 text-sm text-white/70 max-w-[280px] leading-relaxed">
-            Specialist recruitment for the education sector — helping schools and education organisations identify, assess and hire talent across India.
+            Specialist recruitment for the education sector – helping schools and education organisations identify, assess and hire talent across India.
           </p>
           <p className="mt-5 text-xs font-semibold uppercase tracking-[0.15em] text-amber-cta">
             Specialist. Confidential. Sector-Focused.
@@ -42,7 +46,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {SERVICES.map((s) => (
               <li key={s.label}>
-                <Link to={s.to} className="text-white/75 hover:text-white transition-colors">
+                <Link to={s.to} className="text-white/75 hover:text-white hover:underline underline-offset-4 transition-colors">
                   {s.label}
                 </Link>
               </li>
@@ -55,7 +59,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {links.map((l) => (
               <li key={l.to}>
-                <Link to={l.to} className="text-white/75 hover:text-white transition-colors">
+                <Link to={l.to} className="text-white/75 hover:text-white hover:underline underline-offset-4 transition-colors">
                   {l.label}
                 </Link>
               </li>
@@ -66,10 +70,11 @@ export function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-white">Contact</h4>
           <ul className="mt-4 space-y-3 text-sm text-white/80">
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><span>recruitment@acadhire.co.in</span></li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /><a href="tel:+918950504713" className="hover:text-white transition-colors">+91 89505 04713</a></li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4" /><a href="mailto:recruitment@acadhire.co.in" className="hover:text-white hover:underline underline-offset-4 transition-colors">recruitment@acadhire.co.in</a></li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4" /><a href="tel:+918950504713" className="hover:text-white hover:underline underline-offset-4 transition-colors">+91 89505 04713</a></li>
+            <li className="flex items-center gap-2"><MessageCircle className="h-4 w-4" /><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline underline-offset-4 transition-colors">+91 89505 04713</a></li>
             <li className="flex items-center gap-2"><MapPin className="h-4 w-4" /><span>New Delhi, India</span></li>
-            <li className="flex items-center gap-2"><Linkedin className="h-4 w-4" /><a href="https://www.linkedin.com/company/acadhirerecruitments/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a></li>
+            <li className="flex items-center gap-2"><Linkedin className="h-4 w-4" /><a href="https://www.linkedin.com/company/acadhirerecruitments/" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline underline-offset-4 transition-colors">LinkedIn</a></li>
           </ul>
         </div>
       </div>

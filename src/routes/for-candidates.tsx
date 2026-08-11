@@ -107,8 +107,15 @@ function ForCandidatesPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white section-y">
-        <div className="container-prose">
+      <section className="relative overflow-hidden bg-hero-navy text-white section-y">
+        <img
+          src="/images/candidate-growth.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-hero-navy via-hero-navy/95 to-hero-navy/70" aria-hidden />
+        <div className="container-prose relative">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Candidates</p>
             <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Find Your Next Role in Education</h1>
@@ -139,7 +146,7 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="section-y">
+      <section className="section-y bg-surface">
         <div className="container-prose">
           <SectionHeading
             align="left"
@@ -154,7 +161,7 @@ function ForCandidatesPage() {
               { icon: Bell, title: "Upcoming requirements", desc: "Roles organisations are preparing to open." },
               { icon: Database, title: "Talent database matches", desc: "Relevant opportunities identified through the AcadHire talent database." },
             ].map((b) => (
-              <Card key={b.title} className="p-6">
+              <Card key={b.title} className="p-6 bg-background">
                 <b.icon className="h-6 w-6 text-teal" />
                 <h3 className="mt-4 font-bold text-foreground text-sm">{b.title}</h3>
                 <p className="mt-2 text-sm text-body">{b.desc}</p>
@@ -167,11 +174,11 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section id="candidate-form" className="section-y bg-surface scroll-mt-20">
+      <section id="candidate-form" className="section-y scroll-mt-20">
         <div className="container-prose">
           <SectionHeading eyebrow="Register" title="Register Your Profile" subtitle="Share your details and resume. Our team will reach out only when there's a relevant match." />
 
-          <Card className="mt-10 p-6 md:p-10">
+          <Card className="mt-10 mx-auto max-w-3xl p-6 md:p-10">
             {submitted ? (
               <div className="text-center py-10">
                 <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-cta/20 text-amber-cta">
@@ -306,7 +313,7 @@ function ForCandidatesPage() {
         </div>
       </section>
 
-      <section className="section-y">
+      <section className="section-y bg-surface">
         <div className="container-prose">
           <SectionHeading align="left" eyebrow="Next steps" title="What Happens After You Register" />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
@@ -315,7 +322,7 @@ function ForCandidatesPage() {
               { step: 2, title: "Conversation", desc: "If there's a fit, a consultant reaches out for a quick screening call." },
               { step: 3, title: "Interviews & Offer", desc: "We brief you, prep you, and support you through to offer and joining." },
             ].map((s) => (
-              <Card key={s.step} className="p-7">
+              <Card key={s.step} className="p-7 bg-background">
                 <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-navy text-xs font-bold text-navy-foreground">{s.step}</div>
                 <h3 className="mt-4 font-bold text-foreground">{s.title}</h3>
                 <p className="mt-2 text-sm text-body">{s.desc}</p>

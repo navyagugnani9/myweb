@@ -94,12 +94,19 @@ function ForEmployersPage() {
 
   return (
     <>
-      <section className="bg-hero-navy text-white section-y">
-        <div className="container-prose grid gap-10 lg:grid-cols-[1.1fr_1fr] items-center">
-          <div>
+      <section className="relative overflow-hidden bg-hero-navy text-white section-y">
+        <img
+          src="/images/candidate-sourcing.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-hero-navy via-hero-navy/95 to-hero-navy/70" aria-hidden />
+        <div className="container-prose relative">
+          <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.2em] text-white/70">For Employers</p>
             <h1 className="mt-4 text-4xl md:text-5xl font-bold text-white">Hire Talent for Your Education Organisation</h1>
-            <p className="mt-5 max-w-[600px] text-lg text-white/80">Submit your requirement and our team will assess it before beginning the search.</p>
+            <p className="mt-5 text-lg text-white/80">Submit your requirement and our team will assess it before beginning the search.</p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <Button className="bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground" size="lg" onClick={() => document.getElementById('requirement-form')?.scrollIntoView({ behavior: 'smooth' })}>
                 Submit a Hiring Requirement
@@ -109,11 +116,25 @@ function ForEmployersPage() {
               </Button>
             </div>
           </div>
-          <img
-            src="/images/candidate-sourcing.png"
-            alt="Sourcing and shortlisting candidates for a hiring requirement"
-            className="hidden lg:block w-full rounded-2xl shadow-elegant object-cover aspect-[4/3]"
-          />
+        </div>
+      </section>
+
+      {/* WHY ACADHIRE — short strip */}
+      <section className="bg-surface py-8">
+        <div className="container-prose flex flex-wrap items-center gap-x-10 gap-y-4">
+          {[
+            { icon: ClipboardList, label: "Education-only specialists" },
+            { icon: Search, label: "Active search, not just job portals" },
+            { icon: FileCheck, label: "Assessed before you see them" },
+            { icon: Handshake, label: "Support through joining" },
+          ].map((b) => (
+            <div key={b.label} className="flex items-center gap-2.5">
+              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal/10 text-teal">
+                <b.icon className="h-4 w-4" />
+              </span>
+              <span className="text-sm font-medium text-foreground">{b.label}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -138,7 +159,7 @@ function ForEmployersPage() {
         <div className="container-prose">
           <SectionHeading eyebrow="Submit a requirement" title="Tell Us About the Role" subtitle="We'll respond within 24 hours with next steps. The form takes under a minute." />
 
-          <Card className="mt-10 p-6 md:p-10">
+          <Card className="mt-10 mx-auto max-w-3xl p-6 md:p-10">
             {submitted ? (
               <div className="text-center py-10">
                 <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-cta/20 text-amber-cta">
@@ -217,25 +238,6 @@ function ForEmployersPage() {
         </div>
       </section>
 
-      <section className="section-y">
-        <div className="container-prose">
-          <SectionHeading align="left" eyebrow="Why AcadHire" title="Why Employers Work With Us" />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { icon: ClipboardList, title: "Sector specialists", desc: "Education only. No generalist guesswork." },
-              { icon: Search, title: "Active search", desc: "Database sourcing, market mapping and direct outreach beyond job portals." },
-              { icon: FileCheck, title: "Assessed shortlists", desc: "Profiles reviewed against your requirement before you see them." },
-              { icon: Handshake, title: "Support through joining", desc: "Interview coordination, feedback and offer support included." },
-            ].map((b) => (
-              <Card key={b.title} className="p-6">
-                <b.icon className="h-6 w-6 text-teal" />
-                <h3 className="mt-4 font-bold text-foreground">{b.title}</h3>
-                <p className="mt-2 text-sm text-body">{b.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
     </>
   );
 }

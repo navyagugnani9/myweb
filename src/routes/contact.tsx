@@ -74,30 +74,30 @@ function ContactPage() {
 
       <section className="section-y bg-surface">
         <div className="container-prose">
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="p-7">
+          <div className="grid gap-6 md:grid-cols-3 items-stretch">
+            <Card className="flex h-full flex-col p-7">
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy text-navy-foreground"><Briefcase className="h-5 w-5" /></span>
               <h2 className="mt-5 text-lg font-bold text-foreground">I am hiring</h2>
               <p className="mt-2 text-sm text-body">Submit a recruitment requirement.</p>
-              <Button asChild className="mt-5 w-full bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
+              <Button asChild className="w-full mt-auto bg-amber-cta hover:bg-amber-cta/90 text-amber-cta-foreground">
                 <Link to="/for-employers">Submit a Hiring Requirement</Link>
               </Button>
             </Card>
-            <Card className="p-7">
+            <Card className="flex h-full flex-col p-7">
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-teal/10 text-teal"><GraduationCap className="h-5 w-5" /></span>
               <h2 className="mt-5 text-lg font-bold text-foreground">I am looking for an opportunity</h2>
               <p className="mt-2 text-sm text-body">Join the candidate database or browse vacancies.</p>
-              <Button asChild variant="outline" className="mt-5 w-full">
+              <Button asChild variant="outline" className="w-full mt-auto">
                 <Link to="/for-candidates">Explore Opportunities</Link>
               </Button>
             </Card>
-            <Card className="p-7">
+            <Card className="flex h-full flex-col p-7">
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-navy/5 text-navy"><MessageCircle className="h-5 w-5" /></span>
               <h2 className="mt-5 text-lg font-bold text-foreground">General enquiry</h2>
               <p className="mt-2 text-sm text-body">Contact AcadHire directly.</p>
               <Button
                 variant="outline"
-                className="mt-5 w-full"
+                className="w-full mt-auto"
                 onClick={() => document.getElementById("general-enquiry")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Contact AcadHire
@@ -116,14 +116,22 @@ function ContactPage() {
 
             <div className="mt-8 space-y-5">
               {[
-                { icon: Mail, label: "Email", value: "recruitment@acadhire.co.in" },
+                { icon: Mail, label: "Email", value: "recruitment@acadhire.co.in", href: "mailto:recruitment@acadhire.co.in" },
                 { icon: Phone, label: "Phone", value: "+91 89505 04713", href: "tel:+918950504713" },
+                {
+                  icon: MessageCircle,
+                  label: "WhatsApp",
+                  value: "+91 89505 04713",
+                  href: `https://wa.me/918950504713?text=${encodeURIComponent(
+                    "Hi AcadHire! I have an inquiry regarding your recruitment services and would like to discuss my hiring requirements. Could you please share more information about how AcadHire can support us?",
+                  )}`,
+                },
                 { icon: MapPin, label: "City", value: "New Delhi, India" },
                 { icon: Clock, label: "Office Hours", value: "Monday – Saturday · 9 AM – 6 PM IST" },
                 { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/company/acadhirerecruitments", href: "https://www.linkedin.com/company/acadhirerecruitments/" },
               ].map((it) => (
                 <div key={it.label} className="flex items-start gap-4">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy/5 text-navy">
+                  <span className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${it.label === "WhatsApp" ? "bg-[#25D366]/10 text-[#25D366]" : "bg-navy/5 text-navy"}`}>
                     <it.icon className="h-5 w-5" />
                   </span>
                   <div>

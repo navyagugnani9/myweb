@@ -175,18 +175,34 @@
     }
   }
 
-  /* Consistent vertical rhythm for major page sections: ~48px on mobile,
-     ~72px on desktop — a compact, editorial density (some sections may
-     use up to 80px, but this is the shared default). */
+  /* Consistent vertical rhythm for major page sections: ~40px on mobile,
+     ~56px on desktop — a compact, editorial density (some sections may
+     use up to 64px, but this is the shared default). */
   .section-y {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
   @media (min-width: 768px) {
     .section-y {
-      padding-top: 4.5rem;
-      padding-bottom: 4.5rem;
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
     }
+  }
+
+  .animate-marquee {
+    animation: marquee 22s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 

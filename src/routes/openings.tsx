@@ -1,9 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, MapPin, Briefcase, Clock, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { SectionHeading } from "@/components/SectionHeading";
 import { OPENINGS, type JobOpening } from "@/lib/openings";
+
+const METADATA_ICONS: Record<string, typeof MapPin> = {
+  Location: MapPin,
+  "Employment Type": Briefcase,
+  Experience: Clock,
+};
 
 const SITE_URL = "https://www.acadhire.co.in";
 
@@ -86,31 +93,34 @@ function OpeningsPage() {
         </div>
       </section>
 
-      <section className="pt-12 pb-8 md:pt-20 md:pb-12">
+      <section className="pt-10 pb-6 md:pt-14 md:pb-10">
         <div className="container-prose">
           <SectionHeading
             align="left"
             eyebrow="Openings"
-            title="Current Opportunities"
-            subtitle="Explore active opportunities across schools, education consultancies and education organisations."
+            title="Explore Active Opportunities"
+            subtitle="Roles currently open across schools, education consultancies and education organisations."
             className="max-w-none"
           />
 
-          <div className="mt-14">
+          <div className="mt-10 space-y-6">
             {OPENINGS.map((job) => {
               const expanded = expandedId === job.id;
+              const highlights = job.metadata.filter((m) => METADATA_ICONS[m.label]);
               return (
-                <div key={job.id} className="border-t border-border py-10 first:border-t-0 first:pt-0">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground">{job.title}</h3>
+                <Card key={job.id} className="p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground">{job.title}</h3>
                   <p className="mt-1.5 text-sm font-medium text-teal">{job.organisation}</p>
 
-                  <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-2">
-                    {job.metadata.map((m) => (
-                      <div key={m.label} className="flex items-baseline gap-1.5 text-sm">
-                        <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{m.label}:</span>
-                        <span className="text-body">{m.value}</span>
-                      </div>
-                    ))}
+                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                    {highlights.map((m) => {
+                      const Icon = METADATA_ICONS[m.label];
+                      return (
+                        <span key={m.label} className="flex items-center gap-1.5 text-sm text-body">
+                          <Icon className="h-4 w-4 text-teal shrink-0" /> {m.value}
+                        </span>
+                      );
+                    })}
                   </div>
 
                   <p className="mt-5 max-w-3xl text-body leading-relaxed">{job.summary}</p>
@@ -128,6 +138,16 @@ function OpeningsPage() {
 
                   {expanded && (
                     <div className="mt-8 max-w-3xl space-y-7 border-t border-border pt-8">
+                      {job.metadata.some((m) => !METADATA_ICONS[m.label]) && (
+                        <div className="flex flex-wrap gap-x-8 gap-y-2">
+                          {job.metadata.filter((m) => !METADATA_ICONS[m.label]).map((m) => (
+                            <div key={m.label} className="flex items-baseline gap-1.5 text-sm">
+                              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{m.label}:</span>
+                              <span className="text-body">{m.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       {job.sections.map((section) => (
                         <div key={section.heading}>
                           <h4 className="font-bold text-foreground">{section.heading}</h4>
@@ -148,14 +168,21 @@ function OpeningsPage() {
                       ))}
                     </div>
                   )}
-                </div>
+                </Card>
               );
             })}
           </div>
 
-          <p className="mt-10 text-body leading-relaxed">
-            To apply, email your resume to recruitment@acadhire.co.in with the subject line: Application for [Job Title] | [Your Name]
-          </p>
+          <Card className="mt-10 flex flex-col items-start gap-3 bg-surface p-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-start gap-3">
+              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy/10 text-navy">
+                <Send className="h-4 w-4" />
+              </span>
+              <p className="text-sm text-body leading-relaxed">
+                To apply, email your resume to <a href="mailto:recruitment@acadhire.co.in" className="font-medium text-foreground hover:text-teal hover:underline">recruitment@acadhire.co.in</a> with the subject line: <span className="font-medium text-foreground">Application for [Job Title] | [Your Name]</span>
+              </p>
+            </div>
+          </Card>
         </div>
       </section>
     </>
