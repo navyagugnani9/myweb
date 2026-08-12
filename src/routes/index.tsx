@@ -28,8 +28,8 @@ export const Route = createFileRoute("/")({
 
 const ORGANISATIONS = [
   { icon: Building2, title: "Schools & School Groups", desc: "K-12 schools, international schools, preschools, boarding schools and school groups." },
-  { icon: Monitor, title: "EdTech & Learning Organisations", desc: "EdTech companies and training and learning organisations." },
   { icon: GraduationCap, title: "Education Consultancies & Services", desc: "Coaching and test preparation, education consultancies, assessment and education services, and other education businesses." },
+  { icon: Monitor, title: "EdTech & Learning Organisations", desc: "EdTech companies and training and learning organisations." },
 ];
 
 const ROLE_CATEGORIES = [

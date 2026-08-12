@@ -141,7 +141,9 @@ function ScrollToTopOnRouteChange() {
   const router = useRouter();
   useEffect(() => {
     const unsub = router.subscribe("onResolved", () => {
-      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+      if (!router.state.location.hash) {
+        window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+      }
     });
     return unsub;
   }, [router]);

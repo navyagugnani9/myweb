@@ -136,10 +136,13 @@ function TalentCardsPage() {
               alt="Network of screened education talent profiles"
               className="relative w-full -rotate-2 rounded-2xl shadow-elegant object-cover aspect-square ring-1 ring-white/10"
             />
-            <div className="absolute -bottom-5 -left-5 flex items-center gap-2 rounded-xl bg-white px-4 py-3 shadow-elegant">
+            <button
+              onClick={() => document.getElementById("talent-cards-listing")?.scrollIntoView({ behavior: "smooth" })}
+              className="absolute -bottom-5 -left-5 flex cursor-pointer items-center gap-2 rounded-xl bg-white px-4 py-3 shadow-elegant transition-transform hover:-translate-y-0.5 hover:shadow-lg"
+            >
               <ShieldCheck className="h-5 w-5 text-teal" />
               <span className="text-xs font-semibold text-navy">Verified Candidate Profiles</span>
-            </div>
+            </button>
           </div>
         </div>
       </section>

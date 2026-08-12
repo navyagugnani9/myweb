@@ -13,7 +13,6 @@ const links = [
   { to: "/for-candidates", label: "For Candidates" },
   { to: "/talent-cards", label: "Talent Cards" },
   { to: "/openings", label: "Current Openings" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Navbar() {
@@ -40,12 +39,12 @@ export function Navbar() {
           <LogoWordmark className="text-2xl" variant="light" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex flex-1 items-center justify-center gap-5 overflow-x-auto">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="text-sm font-medium text-foreground/80 hover:text-navy transition-colors"
+              className="shrink-0 whitespace-nowrap text-sm font-medium text-foreground/80 hover:text-navy transition-colors"
               activeProps={{ className: "text-navy font-semibold" }}
               activeOptions={{ exact: l.to === "/" }}
             >

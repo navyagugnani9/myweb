@@ -7,10 +7,10 @@ const WHATSAPP_URL = `https://wa.me/918950504713?text=${encodeURIComponent(
 )}`;
 
 const SERVICES = [
-  { to: "/services", label: "Leadership and Senior Search" },
-  { to: "/services", label: "Academic and Teaching Recruitment" },
-  { to: "/services", label: "Admissions, Counselling and Growth" },
-  { to: "/services", label: "Operations and Functional Recruitment" },
+  { to: "/services", hash: "leadership", label: "Leadership and Senior Search" },
+  { to: "/services", hash: "academic", label: "Academic and Teaching Recruitment" },
+  { to: "/services", hash: "admissions", label: "Admissions, Counselling and Growth" },
+  { to: "/services", hash: "operations", label: "Operations and Functional Recruitment" },
 ] as const;
 
 const links = [
@@ -46,7 +46,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {SERVICES.map((s) => (
               <li key={s.label}>
-                <Link to={s.to} className="text-white/75 hover:text-white hover:underline underline-offset-4 transition-colors">
+                <Link to={s.to} hash={s.hash} className="text-white/75 hover:text-white hover:underline underline-offset-4 transition-colors">
                   {s.label}
                 </Link>
               </li>

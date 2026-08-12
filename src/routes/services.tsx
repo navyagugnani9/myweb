@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   Users, Landmark, Briefcase, BookOpen, GraduationCap, Monitor,
   TrendingUp, Handshake, Settings, ClipboardList, PieChart, UserCircle,
@@ -111,15 +111,52 @@ const SECTORS = [
   { icon: Briefcase, label: "Other Education Businesses" },
 ];
 
+const SERVICES_OFFERED = [
+  {
+    icon: ClipboardList,
+    title: "Specialist Recruitment",
+    desc: "End to end recruitment support for teaching, academic leadership, admissions, counselling, marketing, operations, HR, finance, and administrative roles. We manage sourcing, preliminary screening, candidate assessment, interview coordination, and joining follow up to help institutions hire relevant professionals efficiently.",
+  },
+  {
+    icon: Landmark,
+    title: "Campus and Expansion Hiring",
+    desc: "Structured recruitment support for new schools, additional campuses, and organisations hiring across several positions or locations. We help plan workforce requirements, prioritise critical roles, map relevant talent markets, and coordinate multiple searches.",
+  },
+  {
+    icon: Briefcase,
+    title: "Leadership and Executive Search",
+    desc: "A focused search service for senior and business critical roles such as Principals, Vice Principals, Academic Heads, School Directors, Centre Heads, Admissions Leaders, and Operations Heads. Each search is handled with discretion, targeted market mapping, and detailed assessment of leadership experience, motivation, and institutional fit.",
+  },
+  {
+    icon: PieChart,
+    title: "Talent Mapping and Market Insights",
+    desc: "Research led mapping of relevant professionals across specific roles, locations, school boards, organisations, and experience levels. This helps institutions understand candidate availability, compensation expectations, competitor talent pools, and the overall market landscape before beginning a search.",
+  },
+];
+
 const DELIVERABLES = [
-  { icon: FileText, title: "Candidate Profile", items: ["Resume", "Current organisation", "Relevant experience", "Location"] },
-  { icon: UserCheck, title: "Screening Information", items: ["AcadHire screening summary", "Key alignment with the requirement", "Relevant concerns or gaps", "Candidate interest and motivation"] },
-  { icon: Wallet, title: "Practical Considerations", items: ["Current and expected compensation", "Notice period / joining availability", "Location and relocation considerations"] },
+  { icon: FileText, title: "Curated Candidate Shortlists", desc: "Profiles selected against the agreed mandate, with relevant career background, current organisation, experience, location and role specific information presented clearly for review." },
+  { icon: ClipboardCheck, title: "Candidate Assessment Notes", desc: "Each shortlisted profile is accompanied by AcadHire's screening perspective, including alignment with the requirement, relevant strengths, areas requiring further assessment and overall suitability for progression." },
+  { icon: Wallet, title: "Candidate Availability and Expectations", desc: "Clear visibility into compensation expectations, notice period, joining timeline, location preferences, relocation considerations and level of interest in the opportunity." },
+  { icon: TrendingUp, title: "Search and Market Feedback", desc: "Where relevant, we share observations emerging from the search, including candidate availability, compensation patterns, common reasons for declining an opportunity and any challenges affecting the talent pool." },
+  { icon: Search, title: "Search Progress Visibility", desc: "Ongoing communication on sourcing progress, candidate conversations, interview movement and other developments across the mandate." },
+  { icon: Handshake, title: "Interview and Closure Support", desc: "Coordination through interviews, feedback, offer discussions and joining, helping maintain momentum with both the institution and the candidate until the search is closed." },
+  { icon: ShieldCheck, title: "Leadership Search Documentation", desc: "For selected senior and leadership mandates, deliverables may also include deeper candidate assessment, career motivation, leadership context, market mapping and reference checks where agreed as part of the search." },
 ];
 
 function ServicesPage() {
   const [activeTab, setActiveTab] = useState(ROLE_TABS[0].value);
   const active = ROLE_TABS.find((t) => t.value === activeTab) ?? ROLE_TABS[0];
+  const hash = useRouterState({ select: (s) => s.location.hash });
+
+  useEffect(() => {
+    if (ROLE_TABS.some((t) => t.value === hash)) {
+      setActiveTab(hash);
+      requestAnimationFrame(() => {
+        document.getElementById("what-we-recruit-for")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [hash]);
 
   return (
     <>
@@ -136,19 +173,41 @@ function ServicesPage() {
               <Link to="/for-employers">Submit a Hiring Requirement</Link>
             </Button>
           </div>
-          <div className="relative">
-            <div className="absolute -bottom-5 -left-5 h-full w-full rounded-2xl border-2 border-teal/40" aria-hidden />
+          <div className="relative hidden lg:block">
+            <div className="absolute inset-0 rotate-3 rounded-2xl bg-teal/25" aria-hidden />
             <img
               src="/images/services-hero-laptop.png"
               alt="AcadHire candidate shortlist and screening workflow"
-              className="relative w-full rounded-2xl shadow-elegant object-cover aspect-[4/3]"
+              className="relative w-full -rotate-2 rounded-2xl shadow-elegant object-cover aspect-[4/3] ring-1 ring-white/10"
             />
+            <div className="absolute -bottom-5 -left-5 flex items-center gap-2 rounded-xl bg-white px-4 py-3 shadow-elegant">
+              <ShieldCheck className="h-5 w-5 text-teal" />
+              <span className="text-xs font-semibold text-navy">Screened, Assessed Shortlists</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES OFFERED */}
+      <section className="section-y">
+        <div className="container-prose">
+          <SectionHeading align="left" eyebrow="Services offered" title="How AcadHire Supports Your Hiring" />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {SERVICES_OFFERED.map((s) => (
+              <div key={s.title} className="p-6 rounded-xl bg-surface border border-border hover:border-teal/40 transition">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal/10 text-teal">
+                  <s.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-foreground">{s.title}</h3>
+                <p className="mt-3 text-body leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ROLES WE RECRUIT FOR — tabbed, consolidated (Leadership included) */}
-      <section id="what-we-recruit-for" className="section-y scroll-mt-20">
+      <section id="what-we-recruit-for" className="bg-surface section-y scroll-mt-20">
         <div className="container-prose">
           <SectionHeading align="left" eyebrow="What we recruit for" title="Roles We Recruit For" />
 
@@ -197,7 +256,7 @@ function ServicesPage() {
       </section>
 
       {/* SECTORS WE SUPPORT */}
-      <section className="bg-surface section-y">
+      <section className="section-y">
         <div className="container-prose">
           <SectionHeading
             align="left"
@@ -207,7 +266,7 @@ function ServicesPage() {
           />
           <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {SECTORS.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-2.5 rounded-xl bg-background p-4 text-center">
+              <div key={s.label} className="flex flex-col items-center gap-2.5 rounded-xl bg-surface p-4 text-center">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-navy/5 text-navy">
                   <s.icon className="h-5 w-5" />
                 </span>
@@ -219,7 +278,7 @@ function ServicesPage() {
       </section>
 
       {/* OUR SEARCH PROCESS */}
-      <section className="section-y">
+      <section className="bg-surface section-y">
         <div className="container-prose">
           <SectionHeading align="left" eyebrow="Our process" title="Our Search Process" subtitle="The standard process behind every AcadHire search, from requirement to joining." />
           <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -241,7 +300,7 @@ function ServicesPage() {
               </div>
             ))}
           </div>
-          <div className="mt-12 flex items-start gap-3 rounded-xl bg-surface border border-border p-5 max-w-3xl">
+          <div className="mt-12 flex items-start gap-3 rounded-xl bg-background border border-border p-5 max-w-3xl">
             <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal/10 text-teal">
               <ShieldCheck className="h-4 w-4" />
             </span>
@@ -253,23 +312,22 @@ function ServicesPage() {
       </section>
 
       {/* DELIVERABLES */}
-      <section className="bg-surface section-y">
+      <section className="section-y">
         <div className="container-prose">
-          <SectionHeading align="left" eyebrow="Deliverables" title="What You Get" subtitle="Each shortlisted profile can include the information required to make the next stage of assessment more efficient." />
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          <SectionHeading
+            align="left"
+            eyebrow="Deliverables"
+            title="What AcadHire Brings to Every Search"
+            subtitle="Our work is designed to give hiring teams clearer visibility into the market, stronger candidate context and a more organised path from search to appointment."
+          />
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {DELIVERABLES.map((d) => (
-              <Card key={d.title} className="p-6 shadow-none border-border bg-background">
+              <Card key={d.title} className="p-6 shadow-none border-border bg-surface">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-teal/10 text-teal">
                   <d.icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 font-bold text-foreground">{d.title}</h3>
-                <ul className="mt-3 space-y-2">
-                  {d.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-body leading-relaxed">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted-foreground" /> {item}
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-3 text-sm text-body leading-relaxed">{d.desc}</p>
               </Card>
             ))}
           </div>

@@ -72,7 +72,7 @@ function ContactPage() {
         </div>
       </section>
 
-      <section className="section-y bg-surface">
+      <section className="pt-14 pb-10 md:pt-20 md:pb-14 bg-surface">
         <div className="container-prose">
           <div className="grid gap-6 md:grid-cols-3 items-stretch">
             <Card className="flex h-full flex-col p-7">
@@ -131,7 +131,7 @@ function ContactPage() {
                 { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/company/acadhirerecruitments", href: "https://www.linkedin.com/company/acadhirerecruitments/" },
               ].map((it) => (
                 <div key={it.label} className="flex items-start gap-4">
-                  <span className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${it.label === "WhatsApp" ? "bg-[#25D366]/10 text-[#25D366]" : "bg-navy/5 text-navy"}`}>
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy/5 text-navy">
                     <it.icon className="h-5 w-5" />
                   </span>
                   <div>
