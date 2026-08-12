@@ -11,6 +11,6 @@ export const CREDIBILITY_STATS: CredibilityStat[] = [
   { value: "500+", label: "Education organisations mapped" },
   { value: "Pan India", label: "Search capability" },
   { value: "Academic to Leadership", label: "Hiring coverage" },
-  { value: "End to End", label: "Recruitment support" },
+  { value: "End-to-End", label: "Recruitment support" },
   { value: "Education Sector", label: "Specialist recruitment" },
 ];

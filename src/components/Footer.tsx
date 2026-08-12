@@ -11,6 +11,7 @@ const SERVICES = [
   { to: "/services", hash: "academic", label: "Academic and Teaching Recruitment" },
   { to: "/services", hash: "admissions", label: "Admissions, Counselling and Growth" },
   { to: "/services", hash: "operations", label: "Operations and Functional Recruitment" },
+  { to: "/services", hash: "specialist", label: "Specialist Roles" },
 ] as const;
 
 const links = [

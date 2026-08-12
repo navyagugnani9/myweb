@@ -97,7 +97,7 @@ function OpeningsPage() {
         <div className="container-prose">
           <SectionHeading
             align="left"
-            eyebrow="Openings"
+            eyebrow="Current Opportunities"
             title="Explore Active Opportunities"
             subtitle="Roles currently open across schools, education consultancies and education organisations."
             className="max-w-none"
@@ -174,7 +174,7 @@ function OpeningsPage() {
           </div>
 
           <Card className="mt-10 flex flex-col items-start gap-3 bg-surface p-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-start gap-3">
+            <div className="flex items-center gap-3">
               <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy/10 text-navy">
                 <Send className="h-4 w-4" />
               </span>
