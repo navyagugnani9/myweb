@@ -82,7 +82,6 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container-prose py-5 text-xs text-white/60 flex flex-col sm:flex-row justify-between gap-2">
           <span>© 2026 AcadHire. All rights reserved.</span>
-          <span>A division of SRInsights India Private Limited.</span>
         </div>
       </div>
     </footer>
