@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Resend } from 'resend'
 import { z } from 'zod'
 import { TEMPLATES } from '@/lib/email-templates/registry'
+import { CONFIRMATIONS, FormConfirmationEmail } from '@/lib/email-templates/form-confirmation'
 
 const SITE_NAME = 'AcadHire'
 const FROM_DOMAIN = 'notify.acadhire.co.in'
@@ -20,7 +21,7 @@ const AttachmentSchema = z.object({
 })
 
 const BodySchema = z.object({
-  formType: z.string().min(1).max(80),
+  formType: z.enum(['Candidate Registration', 'Employer Requirement', 'Contact']),
   fields: z.array(FieldSchema).min(1).max(40),
   attachment: AttachmentSchema.optional(),
 })
@@ -51,6 +52,12 @@ export const Route = createFileRoute('/api/public/form-submission')({
           }
         }
 
+        const emailField = parsed.fields.find((field) => field.label === 'Email')
+        const recipient = z.string().trim().email().safeParse(emailField?.value)
+        if (!recipient.success) {
+          return Response.json({ error: 'A valid email address is required' }, { status: 400 })
+        }
+
         const template = TEMPLATES['form-notification']
         if (!template || !template.to) {
           return Response.json({ error: 'Notification template unavailable' }, { status: 500 })
@@ -75,8 +82,7 @@ export const Route = createFileRoute('/api/public/form-submission')({
           const { error } = await resend.emails.send({
             from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
             to: template.to,
-            replyTo:
-              parsed.fields.find((f) => /email/i.test(f.label))?.value || undefined,
+            replyTo: recipient.data,
             subject,
             html,
             text,
@@ -92,6 +98,24 @@ export const Route = createFileRoute('/api/public/form-submission')({
         } catch (err) {
           console.error('Failed to send email:', err)
           return Response.json({ error: 'Failed to send' }, { status: 500 })
+        }
+
+        // A confirmation failure must not ask the visitor to resubmit an
+        // application that has already reached the recruitment team.
+        try {
+          const confirmation = CONFIRMATIONS[parsed.formType]
+          const confirmationElement = React.createElement(FormConfirmationEmail, { formType: parsed.formType })
+          const { error } = await new Resend(resendApiKey).emails.send({
+            from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+            to: recipient.data,
+            replyTo: template.to,
+            subject: confirmation.subject,
+            html: await render(confirmationElement),
+            text: await render(confirmationElement, { plainText: true }),
+          })
+          if (error) console.error('Form confirmation failed:', error.name, error.message)
+        } catch (error) {
+          console.error('Form confirmation failed:', error)
         }
 
         return Response.json({ success: true })
