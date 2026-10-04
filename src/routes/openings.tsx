@@ -47,7 +47,7 @@ function buildJobPostingSchema(job: JobOpening) {
             address: {
               "@type": "PostalAddress",
               addressLocality: location,
-              addressCountry: "IN",
+              addressCountry: location === "Spain" ? "ES" : "IN",
             },
           },
         }),
