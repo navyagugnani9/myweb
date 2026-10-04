@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
-import { Route as TalentCardsRouteImport } from './routes/talent-cards'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as OpeningsRouteImport } from './routes/openings'
@@ -26,7 +25,6 @@ import { Route as ApiTeamSessionRouteImport } from './routes/api/team/session'
 import { Route as ApiTeamLogoutRouteImport } from './routes/api/team/logout'
 import { Route as ApiTeamLoginRouteImport } from './routes/api/team/login'
 import { Route as ApiTeamCandidateSearchRouteImport } from './routes/api/team/candidate-search'
-import { Route as ApiPublicTalentCardRequestRouteImport } from './routes/api/public/talent-card-request'
 import { Route as ApiPublicFormSubmissionRouteImport } from './routes/api/public/form-submission'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -35,11 +33,6 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
   path: '/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TalentCardsRoute = TalentCardsRouteImport.update({
-  id: '/talent-cards',
-  path: '/talent-cards',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -117,12 +110,6 @@ const ApiTeamCandidateSearchRoute = ApiTeamCandidateSearchRouteImport.update({
   path: '/api/team/candidate-search',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicTalentCardRequestRoute =
-  ApiPublicTalentCardRequestRouteImport.update({
-    id: '/api/public/talent-card-request',
-    path: '/api/public/talent-card-request',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiPublicFormSubmissionRoute = ApiPublicFormSubmissionRouteImport.update({
   id: '/api/public/form-submission',
   path: '/api/public/form-submission',
@@ -156,12 +143,10 @@ export interface FileRoutesByFullPath {
   '/openings': typeof OpeningsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/talent-cards': typeof TalentCardsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/team/candidate-search': typeof TeamCandidateSearchRoute
   '/api/public/form-submission': typeof ApiPublicFormSubmissionRoute
-  '/api/public/talent-card-request': typeof ApiPublicTalentCardRequestRoute
   '/api/team/candidate-search': typeof ApiTeamCandidateSearchRoute
   '/api/team/login': typeof ApiTeamLoginRoute
   '/api/team/logout': typeof ApiTeamLogoutRoute
@@ -180,12 +165,10 @@ export interface FileRoutesByTo {
   '/openings': typeof OpeningsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/talent-cards': typeof TalentCardsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/team/candidate-search': typeof TeamCandidateSearchRoute
   '/api/public/form-submission': typeof ApiPublicFormSubmissionRoute
-  '/api/public/talent-card-request': typeof ApiPublicTalentCardRequestRoute
   '/api/team/candidate-search': typeof ApiTeamCandidateSearchRoute
   '/api/team/login': typeof ApiTeamLoginRoute
   '/api/team/logout': typeof ApiTeamLogoutRoute
@@ -205,12 +188,10 @@ export interface FileRoutesById {
   '/openings': typeof OpeningsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/talent-cards': typeof TalentCardsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/team/candidate-search': typeof TeamCandidateSearchRoute
   '/api/public/form-submission': typeof ApiPublicFormSubmissionRoute
-  '/api/public/talent-card-request': typeof ApiPublicTalentCardRequestRoute
   '/api/team/candidate-search': typeof ApiTeamCandidateSearchRoute
   '/api/team/login': typeof ApiTeamLoginRoute
   '/api/team/logout': typeof ApiTeamLogoutRoute
@@ -231,12 +212,10 @@ export interface FileRouteTypes {
     | '/openings'
     | '/services'
     | '/sitemap.xml'
-    | '/talent-cards'
     | '/unsubscribe'
     | '/email/unsubscribe'
     | '/team/candidate-search'
     | '/api/public/form-submission'
-    | '/api/public/talent-card-request'
     | '/api/team/candidate-search'
     | '/api/team/login'
     | '/api/team/logout'
@@ -255,12 +234,10 @@ export interface FileRouteTypes {
     | '/openings'
     | '/services'
     | '/sitemap.xml'
-    | '/talent-cards'
     | '/unsubscribe'
     | '/email/unsubscribe'
     | '/team/candidate-search'
     | '/api/public/form-submission'
-    | '/api/public/talent-card-request'
     | '/api/team/candidate-search'
     | '/api/team/login'
     | '/api/team/logout'
@@ -279,12 +256,10 @@ export interface FileRouteTypes {
     | '/openings'
     | '/services'
     | '/sitemap.xml'
-    | '/talent-cards'
     | '/unsubscribe'
     | '/email/unsubscribe'
     | '/team/candidate-search'
     | '/api/public/form-submission'
-    | '/api/public/talent-card-request'
     | '/api/team/candidate-search'
     | '/api/team/login'
     | '/api/team/logout'
@@ -304,12 +279,10 @@ export interface RootRouteChildren {
   OpeningsRoute: typeof OpeningsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  TalentCardsRoute: typeof TalentCardsRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   TeamCandidateSearchRoute: typeof TeamCandidateSearchRoute
   ApiPublicFormSubmissionRoute: typeof ApiPublicFormSubmissionRoute
-  ApiPublicTalentCardRequestRoute: typeof ApiPublicTalentCardRequestRoute
   ApiTeamCandidateSearchRoute: typeof ApiTeamCandidateSearchRoute
   ApiTeamLoginRoute: typeof ApiTeamLoginRoute
   ApiTeamLogoutRoute: typeof ApiTeamLogoutRoute
@@ -327,13 +300,6 @@ declare module '@tanstack/react-router' {
       path: '/unsubscribe'
       fullPath: '/unsubscribe'
       preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/talent-cards': {
-      id: '/talent-cards'
-      path: '/talent-cards'
-      fullPath: '/talent-cards'
-      preLoaderRoute: typeof TalentCardsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -441,13 +407,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTeamCandidateSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/talent-card-request': {
-      id: '/api/public/talent-card-request'
-      path: '/api/public/talent-card-request'
-      fullPath: '/api/public/talent-card-request'
-      preLoaderRoute: typeof ApiPublicTalentCardRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/form-submission': {
       id: '/api/public/form-submission'
       path: '/api/public/form-submission'
@@ -488,12 +447,10 @@ const rootRouteChildren: RootRouteChildren = {
   OpeningsRoute: OpeningsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  TalentCardsRoute: TalentCardsRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   TeamCandidateSearchRoute: TeamCandidateSearchRoute,
   ApiPublicFormSubmissionRoute: ApiPublicFormSubmissionRoute,
-  ApiPublicTalentCardRequestRoute: ApiPublicTalentCardRequestRoute,
   ApiTeamCandidateSearchRoute: ApiTeamCandidateSearchRoute,
   ApiTeamLoginRoute: ApiTeamLoginRoute,
   ApiTeamLogoutRoute: ApiTeamLogoutRoute,

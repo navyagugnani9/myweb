@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,7 +60,6 @@ const schema = z.object({
   activelyLooking: z.enum(["Yes", "Open to Opportunities", "Not Currently"]),
   opportunityTypes: z.array(z.string()).optional().default([]),
   preferredRoles: z.string().trim().max(300).optional().or(z.literal("")),
-  featureAsTalentCard: z.enum(["Yes", "No"], { errorMap: () => ({ message: "Please select an option" }) }),
   resume: z.any().refine((files: FileList | undefined) => files && files.length > 0, "Please upload your resume")
     .refine((files: FileList) => !files?.[0] || files[0].size <= MAX_FILE_SIZE, "Max file size is 5MB")
     .refine((files: FileList) => !files?.[0] || /\.(pdf|docx?|DOCX?|PDF)$/.test(files[0].name), "PDF or DOC only"),
@@ -70,7 +69,7 @@ type FormValues = z.infer<typeof schema>;
 
 function ForCandidatesPage() {
   const [submitted, setSubmitted] = useState(false);
-  const form = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { message: "" } as Partial<FormValues> as FormValues });
+  const form = useForm<z.input<typeof schema>, unknown, FormValues>({ resolver: zodResolver(schema), defaultValues: { message: "" } as Partial<FormValues> as FormValues });
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -91,7 +90,6 @@ function ForCandidatesPage() {
           { label: 'Actively Looking', value: values.activelyLooking },
           { label: 'Opportunity Types', value: values.opportunityTypes?.length ? values.opportunityTypes.join(', ') : '—' },
           { label: 'Preferred Roles / Job Titles', value: values.preferredRoles },
-          { label: 'Feature as Anonymous Talent Card', value: values.featureAsTalentCard },
           { label: 'Resume', value: resumeFile ? resumeFile.name : '—' },
           { label: 'Message', value: values.message },
         ],
@@ -277,29 +275,6 @@ function ForCandidatesPage() {
 
                 <Field label="Message / Additional Information" error={form.formState.errors.message?.message} className="md:col-span-2">
                   <Textarea rows={4} {...form.register("message")} placeholder="Share anything else we should know — notice period, expectations, etc." />
-                </Field>
-
-                <Field
-                  label="Would you like AcadHire to feature your profile as an anonymous Talent Card?"
-                  error={form.formState.errors.featureAsTalentCard?.message}
-                  className="md:col-span-2"
-                >
-                  <RadioGroup
-                    className="flex flex-wrap gap-4 pt-1"
-                    onValueChange={(v) => form.setValue("featureAsTalentCard", v as FormValues["featureAsTalentCard"], { shouldValidate: true })}
-                  >
-                    {["Yes", "No"].map((o) => (
-                      <label key={o} className="flex items-center gap-2 cursor-pointer text-sm text-body">
-                        <RadioGroupItem value={o} /> {o}
-                      </label>
-                    ))}
-                  </RadioGroup>
-                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                    Selected candidates may be featured anonymously on the AcadHire Talent Cards page and introduced to relevant employers. Your name, contact details and complete profile will never be shared publicly.
-                  </p>
-                  <Link to="/talent-cards" className="mt-2 inline-block text-xs font-semibold text-teal hover:text-navy">
-                    Learn more about AcadHire Talent Cards
-                  </Link>
                 </Field>
 
                 <div className="md:col-span-2">

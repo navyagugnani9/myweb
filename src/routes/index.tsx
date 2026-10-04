@@ -82,9 +82,6 @@ function Home() {
               <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
                 <Link to="/contact" hash="general-enquiry">Speak to Us</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white hover:bg-white hover:text-navy text-slate-800">
-                <Link to="/talent-cards">Explore Talent</Link>
-              </Button>
             </div>
             <p className="mt-10 text-xs uppercase tracking-[0.2em] text-white/60">
               Trusted by Schools · EdTech Companies · Education Groups
