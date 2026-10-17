@@ -59,7 +59,12 @@ function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden text-white min-h-[560px] flex items-center">
         <img
-          src="/images/homepage-hero.png"
+          src="/images/homepage-hero-1536.webp"
+          srcSet="/images/homepage-hero-768.webp 768w, /images/homepage-hero-1536.webp 1536w"
+          sizes="100vw"
+          width={1672}
+          height={941}
+          fetchPriority="high"
           alt="Reviewing and shortlisting candidate profiles for education roles"
           className="absolute inset-0 h-full w-full object-cover"
         />

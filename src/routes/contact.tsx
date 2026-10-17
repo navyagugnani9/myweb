@@ -55,8 +55,8 @@ function ContactPage() {
       setSubmitted(true);
       toast.success("Message sent. We'll get back to you shortly.");
       form.reset();
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We could not confirm delivery. Please retry with the same details.");
     }
   };
 

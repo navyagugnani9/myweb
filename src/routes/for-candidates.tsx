@@ -98,8 +98,8 @@ function ForCandidatesPage() {
       setSubmitted(true);
       toast.success("Thanks! We'll review your profile and reach out if there's a match.");
       form.reset();
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We could not confirm delivery. Please retry with the same details.");
     }
   };
 

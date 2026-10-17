@@ -87,8 +87,8 @@ function ForEmployersPage() {
       setSubmitted(true);
       toast.success("Requirement submitted. We'll be in touch within 24 hours.");
       form.reset();
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We could not confirm delivery. Please retry with the same details.");
     }
   };
 
@@ -96,7 +96,12 @@ function ForEmployersPage() {
     <>
       <section className="relative overflow-hidden bg-hero-navy text-white section-y">
         <img
-          src="/images/candidate-sourcing.png"
+          src="/images/candidate-sourcing-1536.webp"
+          srcSet="/images/candidate-sourcing-768.webp 768w, /images/candidate-sourcing-1536.webp 1536w"
+          sizes="100vw"
+          width={1536}
+          height={1024}
+          fetchPriority="high"
           alt=""
           aria-hidden
           className="absolute inset-0 h-full w-full object-cover opacity-20"
